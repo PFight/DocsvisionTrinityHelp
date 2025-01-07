@@ -1,0 +1,5 @@
+﻿.vs
+bin
+obj
+WebExtension/node_modules
+WebExtension/Dist
