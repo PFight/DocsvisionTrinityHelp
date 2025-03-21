@@ -4,6 +4,7 @@ import { $RequestManager } from "@docsvision/webclient/System/$RequestManager";
 import * as AddCategory from "./Visitor/AddCategory";
 import * as AddRecipient from "./Visitor/AddRecipient";
 import * as AddViolation from "./Visitor/AddViolation";
+import * as Open from "./Visitor/Open";
 import { $CreateAccountingDocument } from "./CreateAccountingDocument/$CreateAccountingDocument";
 import { CreateAccountingDocumentService } from "./CreateAccountingDocument/CreateAccountingDocumentService";
 import * as CreateAccountingDocumentEventHandler from "./CreateAccountingDocument/CreateAccountingDocumentEventHandler";
@@ -18,7 +19,7 @@ import * as CreateAccountingDocumentEventHandler from "./CreateAccountingDocumen
 extensionManager.registerExtension({
     name: "TrinityHelp web extension",
     version: "1.0",
-    globalEventHandlers: [ AddCategory, AddRecipient, AddViolation, CreateAccountingDocumentEventHandler ],
+    globalEventHandlers: [ AddCategory, AddRecipient, AddViolation, CreateAccountingDocumentEventHandler, Open ],
     layoutServices: [ 
         Service.fromFactory($CreateAccountingDocument, (services: $RequestManager) => new CreateAccountingDocumentService(services))
     ],
