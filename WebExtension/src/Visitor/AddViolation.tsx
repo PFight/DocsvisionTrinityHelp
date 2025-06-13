@@ -54,7 +54,7 @@ export function addViolation(sender: LayoutControl) {
     let commonHost = new ModalHost("common-dialog", () => (
         <CommonModalDialog  header={"Добавление категории посетителя"} onClose={() => commonHost.unmount()} 
             isOpen={true} services={services} maxWidth="800px">
-            <RadioGroup name="category" parent={null} ref={(el) => violationType = el} items={violationVariants} labelText="Тип нарушения" />
+            <RadioGroup name="categoryModal" parent={null} ref={(el) => violationType = el} items={violationVariants} labelText="Тип нарушения" />
             <TextBox parent={null} ref={(el) => violationDescription = el} labelText="Описание нарушения" placeHolder="Описание нарушения" />
             <DateTimePicker parent={null} ref={(el) => violationDate = el} value={new Date()} labelText="Дата нарушения" />
             <StaffDirectoryItems parent={null} ref={(el) => fixatedBy = el as StaffDirectoryItemsSingle} labelText="Зафиксировал"

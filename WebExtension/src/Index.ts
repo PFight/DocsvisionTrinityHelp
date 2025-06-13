@@ -8,6 +8,9 @@ import * as Open from "./Visitor/Open";
 import { $CreateAccountingDocument } from "./CreateAccountingDocument/$CreateAccountingDocument";
 import { CreateAccountingDocumentService } from "./CreateAccountingDocument/CreateAccountingDocumentService";
 import * as CreateAccountingDocumentEventHandler from "./CreateAccountingDocument/CreateAccountingDocumentEventHandler";
+import { app } from "@docsvision/webclient/App";
+import { ResetSearchHackResponseResolver } from "./Visitor/ResetSearchHackResponseResolver";
+import { VisitorsFolderPluginFactory } from "./Visitor/VisitorsFolderPluginFactory";
 
 
 // Главная входная точка всего расширения
@@ -24,5 +27,8 @@ extensionManager.registerExtension({
         Service.fromFactory($CreateAccountingDocument, (services: $RequestManager) => new CreateAccountingDocumentService(services))
     ],
     controls: [
-    ]
+    ],
+    initialize() {
+        app.folderPluginProvider.addFactory(new VisitorsFolderPluginFactory());
+    }
 })

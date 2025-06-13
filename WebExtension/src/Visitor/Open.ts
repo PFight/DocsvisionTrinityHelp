@@ -12,11 +12,13 @@ export function openVisitor(sender: CustomButton) {
     const personsTextBoxes = sender.getService($ControlStore).get<TextBox[]>("recipientFirstName");
     const firstName = sender.getService($ControlStore).get<TextBox>("firstName");
 
-    let persons = personsTextBoxes.filter(x => x.hasValue()).map(x => x.value);
-    if (persons) {
-        persons = [firstName.params.value, ...persons];
+    let personsParam = "";
+    let persons = [firstName.params.value];
+    let recipients = personsTextBoxes?.filter(x => x.hasValue()).map(x => x.value);
+    if (recipients) {
+        persons = [...persons, ...recipients];
     }
-    const personsParam = "&persons=" + encodeURIComponent(JSON.stringify(persons));
+    personsParam = "&persons=" + encodeURIComponent(JSON.stringify(persons));
 
     if (passport.hasValue()) {
         window.open(url + "?passport=" + encodeURIComponent(passport.value) + personsParam, "_blank");

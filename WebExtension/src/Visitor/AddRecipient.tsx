@@ -25,6 +25,7 @@ export function addRecipient(sender: LayoutControl) {
     let lastName: TextBox = null;
     let sex: RadioGroup = null;
     let age: NumberControl = null;
+    let birthYear: NumberControl = null;
     let relation: RadioGroup = null;
     let comment: TextBox = null;
     let verified: CheckBox = null;
@@ -62,6 +63,9 @@ export function addRecipient(sender: LayoutControl) {
         if (age.hasValue()) {
           recipientBirthYearCell.value = (new Date()).getFullYear() - age.value;
         }
+        if (birthYear.hasValue()) {
+          recipientBirthYearCell.value = birthYear.value;
+        }
         relationshipCell.value = relation.value;
         commentCell.value = comment.value;
         recipientVerifiedCell.value = verified.value;
@@ -80,12 +84,13 @@ export function addRecipient(sender: LayoutControl) {
             isOpen={true} services={services} maxWidth="800px">
             <TextBox parent={null} ref={(el) => name = el} labelText="Имя" placeHolder="Имя" />
             <TextBox parent={null} ref={(el) => lastName = el} labelText="Фамилия (если отличается)" placeHolder="Фамилия (если отличается)" />
-            <RadioGroup name="sex" parent={null} ref={(el) => sex = el} items={sexVariants} labelText="Пол" />
+            <RadioGroup name="sexModal" parent={null} ref={(el) => sex = el} items={sexVariants} labelText="Пол" />
             <NumberControl parent={null} ref={(el) => age = el} labelText="Возраст (для детей)" placeHolder="Возраст (для детей)" />
-            <RadioGroup name="relation" parent={null} ref={(el) => relation = el} items={realtionshipVariants} labelText="Связь" />
+            <NumberControl parent={null} ref={(el) => birthYear = el} labelText="Год рождения (для детей)" placeHolder="Год рождения (для детей)" />
+            <RadioGroup name="relationModal" parent={null} ref={(el) => relation = el} items={realtionshipVariants} labelText="Связь" />
             <TextBox parent={null} ref={(el) => comment = el} labelText="Комментарий" placeHolder="Комментарий" />
             <CheckBox parent={null} ref={(el) => verified = el} labelText="Проверено"  />
-            <RadioGroup name="verficationType" parent={null} ref={(el) => verification = el} items={verifications} labelText="Как проверено?" />
+            <RadioGroup name="verficationTypeModal" parent={null} ref={(el) => verification = el} items={verifications} labelText="Как проверено?" />
             <TextBox parent={null} ref={(el) => verficationDetails = el} labelText="Подробности проверки" placeHolder="Подробности проверки" />
             <StaffDirectoryItems parent={null} ref={(el) => verifiedBy = el as StaffDirectoryItemsSingle} labelText="Кто проверил"
                 multipleSelection={false} default={sender.getService($CurrentEmployee)} />

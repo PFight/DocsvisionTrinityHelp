@@ -62,10 +62,10 @@ export function addCategory(sender: LayoutControl) {
     let commonHost = new ModalHost("common-dialog", () => (
         <CommonModalDialog  header={"Добавление категории посетителя"} onClose={() => commonHost.unmount()} 
             isOpen={true} services={services} maxWidth="800px">
-            <RadioGroup name="category" parent={null} ref={(el) => category = el} items={categories} labelText="Категория" />
+            <RadioGroup name="categoryModal" parent={null} ref={(el) => category = el} items={categories} labelText="Категория" />
             <TextBox parent={null} ref={(el) => comment = el} labelText="Комментарий" placeHolder="Комментарий" />
             <CheckBox parent={null} ref={(el) => verified = el} labelText="Проверено"  />
-            <RadioGroup name="verficationType" parent={null} ref={(el) => verification = el} items={verifications} labelText="Как проверено?" />
+            <RadioGroup name="verficationTypeModal" parent={null} ref={(el) => verification = el} items={verifications} labelText="Как проверено?" />
             <TextBox parent={null} ref={(el) => verficationDetails = el} labelText="Подробности проверки" placeHolder="Подробности проверки" />
             <StaffDirectoryItems parent={null} ref={(el) => verifiedBy = el as StaffDirectoryItemsSingle} labelText="Кто проверил"
                 multipleSelection={false} default={sender.getService($CurrentEmployee)} />
