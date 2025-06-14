@@ -179,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="CreateStaffDocument\CreateStaffDocumentController.cs" />
+    <Compile Include="CreateStaffDocument\Models\CreateStaffDocumentRequest.cs" />
+    <Compile Include="CreateStaffDocument\Models\CreateStaffDocumentResponse.cs" />
     <Compile Include="CreateAccountingDocument\CreateAccountingDocumentController.cs" />
     <Compile Include="CreateAccountingDocument\Models\CreateAccountingDocumentResponse.cs" />
     <Compile Include="CreateAccountingDocument\Models\CreateAccountingDocumentRequest.cs" />

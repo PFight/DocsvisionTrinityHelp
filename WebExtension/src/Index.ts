@@ -11,6 +11,10 @@ import * as CreateAccountingDocumentEventHandler from "./CreateAccountingDocumen
 import { app } from "@docsvision/webclient/App";
 import { ResetSearchHackResponseResolver } from "./Visitor/ResetSearchHackResponseResolver";
 import { VisitorsFolderPluginFactory } from "./Visitor/VisitorsFolderPluginFactory";
+import { $CreateStaffDocument } from "./CreateStaffDocument/$CreateStaffDocument";
+import { services } from "@docsvision/webclient/Platform/TestUtils";
+import { CreateStaffDocumentService } from "./CreateStaffDocument/CreateStaffDocumentService";
+import * as CreateStaffDocumentEventHandler from "./CreateStaffDocument/CreateStaffDocumentEventHandler";
 
 
 // Главная входная точка всего расширения
@@ -21,10 +25,12 @@ import { VisitorsFolderPluginFactory } from "./Visitor/VisitorsFolderPluginFacto
 // обработчики событий, сервисы и прочие сущности web-приложения.
 extensionManager.registerExtension({
     name: "TrinityHelp web extension",
-    version: "1.0",
-    globalEventHandlers: [ AddCategory, AddRecipient, AddViolation, CreateAccountingDocumentEventHandler, Open ],
+    version: "1.1",
+    globalEventHandlers: [ AddCategory, AddRecipient, AddViolation, CreateAccountingDocumentEventHandler, Open,
+        CreateStaffDocumentEventHandler ],
     layoutServices: [ 
-        Service.fromFactory($CreateAccountingDocument, (services: $RequestManager) => new CreateAccountingDocumentService(services))
+        Service.fromFactory($CreateAccountingDocument, (services: $RequestManager) => new CreateAccountingDocumentService(services)),
+        Service.fromFactory($CreateStaffDocument, (services: $RequestManager) => new CreateStaffDocumentService(services))
     ],
     controls: [
     ],

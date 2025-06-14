@@ -58,6 +58,13 @@ namespace TrinityHelp
             public static string TransferDocument = "TransferDocument";
         }
 
+        public static class Staff
+        {
+            public static readonly Guid ID = new Guid("3D2CFC3C-A8C7-4285-8280-AAD1181A1234");
+
+            public static string Employee = "Employee";
+        }
+
         public static class Kinds
         {
             public static Guid TransferDocument = new Guid("D7250B47-AB32-4739-BC94-05D8434D428E");
@@ -65,6 +72,13 @@ namespace TrinityHelp
             public static Guid Contract = new Guid("061924E0-58F1-4FAA-97EF-72CCF2ED58AD");
             public static Guid Account = new Guid("631185B0-AB62-44B4-B927-35D0DAB9100C");
             public static Guid AccountingDocument = new Guid("C98BED26-45F6-4F25-A76F-90138137AD3A");
+            
+            public static Guid StaffContract = new Guid("786C1250-7AE9-4D68-9102-B43F3358782F");
+            public static Guid StaffContractAddition = new Guid("F42F17AD-F279-4E6C-B7B1-D77B9B9617EC");
+            public static Guid StaffStatement = new Guid("8108C6D0-23CD-4088-9B49-EFB91DBE8936");
+            public static Guid StaffOrder = new Guid("E4125AC1-73C8-48BC-8A3D-6B4AC0A3C884");
+            public static Guid StaffVacationSchedule = new Guid("C7C0ED65-8659-401F-AD66-A50CA9E5527C");
         }
     }
+
 }
