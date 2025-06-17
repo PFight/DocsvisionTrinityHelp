@@ -31,15 +31,17 @@ enum EventTypes {
     ChangePosition,
     ChangeSalary,
     ExtraCharge,
-    ChangeSalaryAccount
+    ChangeSalaryAccount,
+    Other
 }
 
 const needContractEventTypes = [EventTypes.Boarding, 
-    EventTypes.ChangePosition, EventTypes.ExtraCharge, EventTypes.ChangeSalary];
+    EventTypes.ChangePosition, EventTypes.ExtraCharge, 
+    EventTypes.ChangeSalary, EventTypes.Other];
 const needStatementEventTypes = [
     EventTypes.ChangePosition, EventTypes.ChangeRate,
     EventTypes.ChangeSalaryAccount, EventTypes.LeaveOfAbsence,
-    EventTypes.Unboarding, EventTypes.Vacation
+    EventTypes.Unboarding, EventTypes.Vacation, EventTypes.Other
 ]
 
 export function addStaffDocument(sender: LayoutControl) {
@@ -217,7 +219,12 @@ const eventVariants = [
   },
   {
     "key": "Vacation",
-    "value": "Отпуск",
+    "value": "отпуск",
     "valueCode": EventTypes.Vacation
+  },
+  {
+    "key": "Other",
+    "value": "другое",
+    "valueCode": EventTypes.Other
   }
-];
+]
