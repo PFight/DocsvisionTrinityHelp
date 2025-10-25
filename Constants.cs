@@ -22,6 +22,37 @@ namespace TrinityHelp
                 public static string Kind = "Kind";
                 public static string State = "State";
             }
+
+            public static class MainInfo
+            {
+                public static readonly Guid ID = new Guid("f1324f55-569b-4d48-8b70-abdb4e9966b0");
+
+                public static string Links = "Links";
+            }
+        }
+
+        public static class Order
+        {
+            public static readonly Guid ID = new Guid("deb1c58e-42a1-472b-8a32-c9c2f62917a8");
+
+            public static readonly Guid MainKindID = new Guid("D0A6196B-3D9F-4E00-BBA7-2EEEAB6D24E2");
+            public static readonly Guid FirstStateID = new Guid("C9B42F95-BA2F-4720-A56F-8CA987AED7A9");
+
+
+
+            public static class System
+            {
+                public static readonly Guid ID = new Guid("16d0a697-cd83-4d24-9e92-6aa7a57391a6");
+
+                public static string Kind = "Kind";
+                public static string State = "State";
+            }
+
+            public static class MainInfo
+            {
+                public static readonly Guid ID = new Guid("74560b03-924e-4464-877c-ded57d1822d8");
+                public const string Visitor = "Visitor";
+            }
         }
 
 

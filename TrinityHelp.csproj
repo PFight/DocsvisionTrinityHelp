@@ -185,6 +185,9 @@
     <Compile Include="CreateAccountingDocument\CreateAccountingDocumentController.cs" />
     <Compile Include="CreateAccountingDocument\Models\CreateAccountingDocumentResponse.cs" />
     <Compile Include="CreateAccountingDocument\Models\CreateAccountingDocumentRequest.cs" />
+    <Compile Include="Order\OrderController.cs" />
+    <Compile Include="Order\Models\CreateOrderRequest.cs" />
+    <Compile Include="Order\Models\CreateOrderResponse.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,6 +195,7 @@
     </Compile>
     <Compile Include="ServerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Order\OrderLifecycle.cs" />
     <Compile Include="Visitor\VisitorLifecycle.cs" />
   </ItemGroup>
   <ItemGroup>

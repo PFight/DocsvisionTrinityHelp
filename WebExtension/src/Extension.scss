@@ -5,3 +5,18 @@
 .ident {
      padding: 10px;
 }
+
+.align-controls .system-textbox input,
+.align-controls .system-realnumber input  {
+     height: 2.2rem !important;
+}
+
+.order-header-row {
+     width: auto !important;
+     font-size: 1.125rem;
+}
+
+.order-card-management {
+   width: auto  !important;
+   padding-left: 20px;
+}

@@ -49,6 +49,8 @@ namespace TrinityHelp
         public override void InitializeContainer(ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<VisitorLifecycle>().As<ICardLifeCycleEx>().WithParameter("cardTypeId", Constants.Visitor.ID).SingleInstance();
+            containerBuilder.RegisterType<OrderLifecycle>().As<ICardLifeCycleEx>().WithParameter("cardTypeId", Constants.Order.ID).SingleInstance();
+            
 
             // Примеры регистрации различных типов ВК 
             // containerBuilder.RegisterType<YourServiceClass>().As<YourServiceInterface>().SingleInstance();

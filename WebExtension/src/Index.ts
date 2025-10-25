@@ -15,6 +15,11 @@ import { $CreateStaffDocument } from "./CreateStaffDocument/$CreateStaffDocument
 import { services } from "@docsvision/webclient/Platform/TestUtils";
 import { CreateStaffDocumentService } from "./CreateStaffDocument/CreateStaffDocumentService";
 import * as CreateStaffDocumentEventHandler from "./CreateStaffDocument/CreateStaffDocumentEventHandler";
+import * as OrderItems from "./Order/Items";
+import * as OrderState from "./Order/StateChange";
+import { $Order } from "./Order/$Order";
+import { OrderService } from "./Order/OrderService";
+import * as VisitorOrder from "./Order/Visitor";
 
 
 // Главная входная точка всего расширения
@@ -25,12 +30,13 @@ import * as CreateStaffDocumentEventHandler from "./CreateStaffDocument/CreateSt
 // обработчики событий, сервисы и прочие сущности web-приложения.
 extensionManager.registerExtension({
     name: "TrinityHelp web extension",
-    version: "1.1",
+    version: "1.2",
     globalEventHandlers: [ AddCategory, AddRecipient, AddViolation, CreateAccountingDocumentEventHandler, Open,
-        CreateStaffDocumentEventHandler ],
+        CreateStaffDocumentEventHandler, OrderItems, OrderState, VisitorOrder ],
     layoutServices: [ 
         Service.fromFactory($CreateAccountingDocument, (services: $RequestManager) => new CreateAccountingDocumentService(services)),
-        Service.fromFactory($CreateStaffDocument, (services: $RequestManager) => new CreateStaffDocumentService(services))
+        Service.fromFactory($CreateStaffDocument, (services: $RequestManager) => new CreateStaffDocumentService(services)),
+        Service.fromFactory($Order, (services: $RequestManager) => new OrderService(services))
     ],
     controls: [
     ],
