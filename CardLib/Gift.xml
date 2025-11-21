@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="DC3A52F8-5AA1-4B13-ADE0-E4DCDDAAADA0" Alias="Visit" Version="7" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="" IconFile="" DefaultSecurity="" TypeName="">
+  <Name>
+    <LocalizedString Language="en">Visit</LocalizedString>
+    <LocalizedString Language="ru-RU">Посещение</LocalizedString>
+  </Name>
+  <Sections>
+    <Section Alias="MainInfo" RowAlias="" Type="struct" ID="48D3631F-B22C-4AF2-BAD5-030838EB2CA0">
+      <Name>
+        <LocalizedString Language="en">Main info</LocalizedString>
+        <LocalizedString Language="ru">Основная информация</LocalizedString>
+      </Name>
+      <Field Alias="Visitor" ID="7A839217-C35F-4519-B200-9C4E6A2CE148" Type="refcardid" RefType="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Visitor</LocalizedString>
+          <LocalizedString Language="ru">Посетитель</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="DateTime" ID="10596EAC-B903-43A9-A852-E6C5392E3A6D" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Date time</LocalizedString>
+          <LocalizedString Language="ru">Дата и время</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Duty" ID="7145ADB7-9368-4388-8F3F-192E6C84EC0F" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Duty</LocalizedString>
+          <LocalizedString Language="ru">Дежурный</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Comment" ID="F87517F3-1F3F-4170-864C-8E58F1D54596" Type="unistring" Max="3000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Comment</LocalizedString>
+          <LocalizedString Language="ru">Комментарий</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="99251149-F814-4D56-AB02-1BE4F3866741" Type="refid" RefType="DC3A52F8-5AA1-4B13-ADE0-E4DCDDAAADA0" RefSection="D0AA7747-D108-4F8D-8072-0CD92688229F" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Number</LocalizedString>
+          <LocalizedString Language="ru">Номер посещения</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Items" RowAlias="" Type="coll" ID="23D9F4DB-9236-4BC8-A695-E2B888A91701">
+      <Name>
+        <LocalizedString Language="en">Items</LocalizedString>
+        <LocalizedString Language="ru">Выданные вещи</LocalizedString>
+      </Name>
+      <Field Alias="ItemCode" ID="DAEEEA7C-1039-405F-A438-42A3F2B125A0" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Item code</LocalizedString>
+          <LocalizedString Language="ru">Код вещи</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="ItemName" ID="77691919-1B69-46FA-B055-2DAB6E62709C" Type="unistring" Max="30" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">ItemName</LocalizedString>
+          <LocalizedString Language="ru">Название вещи</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Count" ID="878DE10A-BD7D-4D17-8018-4A9079189BAA" Type="int" DefaultValue="1" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Count</LocalizedString>
+          <LocalizedString Language="ru">Количество</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Recipient" ID="04B4BD72-D948-4720-B499-55D12D91616E" Type="refid" RefType="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" RefSection="0899D0D9-9EAE-4966-89EF-9177BCC5E1A4" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Recipient</LocalizedString>
+          <LocalizedString Language="ru">Получатель</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Comment" ID="0A135F73-D598-4BA0-8D31-5C70962B8DA3" Type="unistring" Max="1000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Comment</LocalizedString>
+          <LocalizedString Language="ru">Комментарий</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Source" ID="B1A55447-7BE5-445D-9265-CB95AD7A201B" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Source</LocalizedString>
+          <LocalizedString Language="ru">Источник</LocalizedString>
+        </Name>
+        <Description />
+        <Enum Alias="Defective" Value="0">
+          <Name>
+            <LocalizedString Language="en">Defective</LocalizedString>
+            <LocalizedString Language="ru">Второй сорт</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Common" Value="1">
+          <Name>
+            <LocalizedString Language="en">Common</LocalizedString>
+            <LocalizedString Language="ru">Общее</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Limited" Value="2">
+          <Name>
+            <LocalizedString Language="en">Limited</LocalizedString>
+            <LocalizedString Language="ru">Ограниченное</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Special" Value="3">
+          <Name>
+            <LocalizedString Language="en">Special</LocalizedString>
+            <LocalizedString Language="ru">Особое</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Numbers" RowAlias="" Type="coll" ID="D0AA7747-D108-4F8D-8072-0CD92688229F">
+      <Name>
+        <LocalizedString Language="en">Numbers</LocalizedString>
+        <LocalizedString Language="ru">Номера</LocalizedString>
+      </Name>
+      <Field Alias="NumericPart" ID="549FCB28-5AB1-4636-9F74-CBE78D5F5CE4" Type="refid" RefType="959FF5E2-7E47-4F6F-9CF6-E1E477CD01CF" RefSection="D47F2C38-6553-4864-BAFF-0BC4D3A85290" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Numeric part</LocalizedString>
+          <LocalizedString Language="ru">Числовая часть</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="C90B18E6-A248-47FD-91D1-67BF5AA584F8" Type="string" DefaultValue="" CopyBehavior="Null">
+        <Name>
+          <LocalizedString Language="en">Number</LocalizedString>
+          <LocalizedString Language="ru">Номер</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="System" RowAlias="" Type="struct" ID="B263C576-73B1-4472-B9EB-3DBAC5DE7D08" SimpleSecurity="true">
+      <Name>
+        <LocalizedString Language="en">System properties</LocalizedString>
+        <LocalizedString Language="ru">Системные свойства</LocalizedString>
+      </Name>
+      <Field Alias="State" ID="404A5A44-98C5-445C-899C-9FD447BE32AF" Type="refid" RefType="443F55F0-C8AB-4DD3-BCBD-5328C7C9D385" RefSection="521B4477-DD10-4F57-A453-09C70ADB7799" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">State</LocalizedString>
+          <LocalizedString Language="ru">Состояние</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Kind" ID="A8A75424-A57B-42EE-A3A1-5F3CBCCC278F" Type="refid" RefType="8F704E7D-A123-4917-94B4-F3B851F193B2" RefSection="C7BA000C-6203-4D7F-8C6B-5CB6F1E6F851" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Type</LocalizedString>
+          <LocalizedString Language="ru">Вид</LocalizedString>
+        </Name>
+        <Description />
+        <RefFields>
+          <RefField Alias="Kind_Name" SysField="false">Name</RefField>
+        </RefFields>
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+  </Sections>
+</CardDefinition>

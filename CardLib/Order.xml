@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="DEB1C58E-42A1-472B-8A32-C9C2F62917A8" Alias="Order" Version="9" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="clsid:{B71055E6-4732-487E-B5F3-3EE1A5EF97C6}" IconFile="" Copyable="true" FetchMode="1" DefaultSecurity="" TypeName="DocsVision.BackOffice.Cards.PartnersDictionary.EditEmployeeControl, DocsVision.BackOffice.Cards, Version=5.5.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519" UseExtensionInAccessCheck="true">
+  <Name>
+    <LocalizedString Language="en">Order</LocalizedString>
+    <LocalizedString Language="ru-RU">Заказ</LocalizedString>
+  </Name>
+  <Sections>
+    <Section Alias="MainInfo" RowAlias="" Type="struct" ID="74560B03-924E-4464-877C-DED57D1822D8" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Visitor" ID="BC06BEEE-9374-4B93-9FDC-B2C908E5DECE" Type="refcardid" RefType="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Digest" ID="26E3D238-4646-4627-AA35-40E6A5487762" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Description" ID="9FA61A04-75FB-4805-9CB1-2D1E8F5608CB" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="306C214D-D3F4-4764-ABF2-3CD662ADE28F" Type="refid" RefType="DEB1C58E-42A1-472B-8A32-C9C2F62917A8" RefSection="074FD151-4D0A-4510-96BE-C376F956B82E" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Priority" ID="984D8EA9-92DF-465A-8BE0-09F7C959FA36" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="DeliveryLocation" ID="0E695E4B-D528-4AF7-BEDB-CA264CC897AD" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="NeedDelivery" ID="2900A02C-DDD6-42EA-84F5-746BED19974A" Type="bool" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Reason" ID="1D7690DC-62EA-40E2-B995-93F0D6169A09" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="RegisterDate" ID="8E0EA13A-DE4D-49FC-9954-5BE424AFCC1B" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Registrar" ID="FC8BE48C-1C03-465B-96A2-C8B0A60AA808" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="CollectionCompleteDate" ID="620A4F6C-2793-4A76-9F4F-A35CC41C570E" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="CallsCount" ID="18BC9CC3-FECF-4BD2-8CEB-A212CBDA628A" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Cell" ID="0693B09B-DB3C-4D4C-9636-501FBE4F9D82" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="CollectionStartDate" ID="860C8BFB-85FE-4744-A9F6-6C0E6480AFEC" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="CompleteDate" ID="567ABC42-E98D-4490-954C-5544E20A253C" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Numbers" RowAlias="" Type="coll" ID="074FD151-4D0A-4510-96BE-C376F956B82E" SimpleSecurity="true">
+      <Name />
+      <Field Alias="NumericPart" ID="188CC47E-DFAD-4B9B-AF68-A4CB69A88699" Type="refid" RefType="959FF5E2-7E47-4F6F-9CF6-E1E477CD01CF" RefSection="D47F2C38-6553-4864-BAFF-0BC4D3A85290" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="055A8231-5E3E-4A4D-ACD4-5C7BB05B7AE7" Type="string" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="System" RowAlias="" Type="struct" ID="16D0A697-CD83-4D24-9E92-6AA7A57391A6" SimpleSecurity="true">
+      <Name />
+      <Field Alias="State" ID="2AA6F7F3-6ACB-4515-A562-45F21706415A" Type="refid" RefType="443F55F0-C8AB-4DD3-BCBD-5328C7C9D385" RefSection="521B4477-DD10-4F57-A453-09C70ADB7799" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Kind" ID="6E00EA43-A6F1-411B-94FD-2BAF4CD19BB5" Type="refid" RefType="8F704E7D-A123-4917-94B4-F3B851F193B2" RefSection="C7BA000C-6203-4D7F-8C6B-5CB6F1E6F851" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="OrderItems" RowAlias="" Type="coll" ID="02CD49EC-CB48-40DA-B427-EDBA6B0FA324" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Name" ID="F5396495-D742-471B-9CBA-76A6CD54F148" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Size" ID="AFB5C4CC-E45D-49DC-B665-20ED949B1551" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Age" ID="5980252D-6821-4B58-BC6E-98DF492F6338" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Yong" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Ребенок</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Middle" Value="2">
+          <Name>
+            <LocalizedString Language="ru">Средний</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Old" Value="3">
+          <Name>
+            <LocalizedString Language="ru">Пенсионер</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="NoMean" Value="0">
+          <Name>
+            <LocalizedString Language="ru">Не важно</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Style" ID="0EADBE1E-F2B7-4322-B9CC-9A35BF377C45" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="NoMean" Value="0">
+          <Name>
+            <LocalizedString Language="ru">Не важно</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Business" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Деловой</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Sport" Value="2">
+          <Name>
+            <LocalizedString Language="en">Sport</LocalizedString>
+            <LocalizedString Language="ru">Спорт</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Home" Value="3">
+          <Name>
+            <LocalizedString Language="ru">Домашний</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Color" ID="2DC232BD-C00B-4486-8D40-EDE2A3FE890E" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="NoMean" Value="0">
+          <Name>
+            <LocalizedString Language="ru">Неважно</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Dark" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Темный</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Light" Value="2">
+          <Name>
+            <LocalizedString Language="ru">Светлый</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="NonBright" Value="3">
+          <Name>
+            <LocalizedString Language="ru">Неяркий</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Details" ID="44CCC59A-F48F-40C7-A4AE-090D4782D5EE" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Collected" ID="1020DC3C-B90E-4EE2-8822-C922034DE815" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Recipient" ID="66602FF6-A8F8-432B-96DC-1350A309AA1E" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="F35674F0-8C9C-42CE-815D-8E2A73652023" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Sex" ID="7C6A79E6-082E-4AED-AADE-774C1C187715" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Female" Value="0">
+          <Name>
+            <LocalizedString Language="ru">Женское</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Male" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Мужское</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Category" ID="8D4BD423-81DF-4EC2-BA06-6E3B358F7F60" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Outwear" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Верхняя одежда</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Footwear" Value="2">
+          <Name>
+            <LocalizedString Language="ru">Обувь</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Headdress" Value="3">
+          <Name>
+            <LocalizedString Language="ru">Головной убор, шарф</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="AdditionalHelp" Value="4">
+          <Name>
+            <LocalizedString Language="ru">Доп. помощь</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="BigSizeClothes" Value="5">
+          <Name>
+            <LocalizedString Language="ru">Одежда больших размеров</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Homewear" Value="6">
+          <Name>
+            <LocalizedString Language="ru">Домашняя одежда</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Common" Value="7">
+          <Name>
+            <LocalizedString Language="ru">Обычная одежда</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Bag" Value="8">
+          <Name>
+            <LocalizedString Language="ru">Сумка/рюкзак</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Toy" Value="9">
+          <Name>
+            <LocalizedString Language="ru">Игрушка</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Season" ID="F343F507-534C-4167-AEF3-D297DB7537F7" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Summer" Value="0">
+          <Name>
+            <LocalizedString Language="ru">Лето</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Demiseason" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Демисезон</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Winter" Value="2">
+          <Name>
+            <LocalizedString Language="ru">Зима</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Comments" RowAlias="" Type="coll" ID="838C183C-5E18-4BD7-AA7D-47F414E04675">
+      <Name />
+      <Field Alias="Comment" ID="95632D0D-B77C-46BF-8469-E9BA12D89B06" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Author" ID="B9EFC1D4-0A49-4987-9A73-1E36F2F58A3B" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Date" ID="B91C17B9-DAA7-4934-8EFC-365539BB8F54" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+  </Sections>
+</CardDefinition>

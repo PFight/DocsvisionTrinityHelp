@@ -1,0 +1,721 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" Alias="Visitor" Version="12" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="clsid:{B71055E6-4732-487E-B5F3-3EE1A5EF97C6}" IconFile="" Copyable="true" FetchMode="1" DefaultSecurity="" TypeName="DocsVision.BackOffice.Cards.PartnersDictionary.EditEmployeeControl, DocsVision.BackOffice.Cards, Version=5.5.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519" UseExtensionInAccessCheck="true">
+  <Name>
+    <LocalizedString Language="en">Visitor</LocalizedString>
+    <LocalizedString Language="ru-RU">Посетитель</LocalizedString>
+  </Name>
+  <Sections>
+    <Section Alias="MainInfo" RowAlias="" Type="struct" ID="F1324F55-569B-4D48-8B70-ABDB4E9966B0" SimpleSecurity="true">
+      <Name>
+        <LocalizedString Language="en">Main info</LocalizedString>
+        <LocalizedString Language="ru">Основная информация</LocalizedString>
+      </Name>
+      <Field Alias="FirstName" ID="6878B6EE-A756-4069-94DB-C3B86BF8D0D0" Type="unistring" Max="50" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">First name</LocalizedString>
+          <LocalizedString Language="ru">Имя</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="LastName" ID="11E0EC83-6886-4D2E-AEBD-5CDB9E7EB7A9" Type="unistring" Max="100" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Last name</LocalizedString>
+          <LocalizedString Language="ru">Фамилия</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="SecondaryName" ID="5C0BFE20-15B2-4C21-8FA4-77737916ACF5" Type="unistring" Max="50" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Secondary name</LocalizedString>
+          <LocalizedString Language="ru">Отчество</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="ConsentToProcessingPersonalDataNumber" ID="E271B01C-11F1-49CE-8DDA-B32ECD49D222" Type="int" RefType="6E39AD2B-E930-4D20-AAFA-C2ECF812C2B3" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Consent to the processing of personal data number</LocalizedString>
+          <LocalizedString Language="ru">Номер согласия на обработку персональных данных</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Links" ID="2401EACE-1F89-426E-A6CC-57C501B2CA1B" Type="refcardid" RefType="C9B39BEF-1047-407B-9324-8EC00D64FBEE" DefaultValue="" RefKind="Hard" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Links</LocalizedString>
+          <LocalizedString Language="ru">Ссылки</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="AdditionalInfo" ID="4F3839EA-BE72-4040-BD55-90971A2BCFE6" Type="unitext" Max="3000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">AdditionalInfo</LocalizedString>
+          <LocalizedString Language="ru">Дополнительная информация</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Level" ID="F102FEB7-1738-4BAB-9566-FA48F24B335E" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Level of service</LocalizedString>
+          <LocalizedString Language="ru">Уровень обслуживания</LocalizedString>
+        </Name>
+        <Description />
+        <Enum Alias="Bronze" Value="0">
+          <Name>
+            <LocalizedString Language="en">Bronze</LocalizedString>
+            <LocalizedString Language="ru">Бронзовый</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Silver" Value="1">
+          <Name>
+            <LocalizedString Language="en">Silver</LocalizedString>
+            <LocalizedString Language="ru">Серебрянный</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Gold" Value="2">
+          <Name>
+            <LocalizedString Language="en">Gold</LocalizedString>
+            <LocalizedString Language="ru">Золотой</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Platinum" Value="3">
+          <Name>
+            <LocalizedString Language="en">Platinum</LocalizedString>
+            <LocalizedString Language="ru">Платиновый</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Offender" Value="4">
+          <Name>
+            <LocalizedString Language="en">Offender</LocalizedString>
+            <LocalizedString Language="ru">Нарушитель</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="NoService" Value="5">
+          <Name>
+            <LocalizedString Language="en">No service</LocalizedString>
+            <LocalizedString Language="ru">Не обслуживается</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="BirthDate" ID="0620169C-5CFC-4A39-89FB-F0DF5F87028D" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Verified" ID="02306007-7B4C-42DD-B6F3-71A54F3D2A38" Type="bool" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="ChildrenCount" ID="CE2A5FFC-B781-423F-8CBE-6A22642C993A" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Children count</LocalizedString>
+          <LocalizedString Language="ru">Количество детей</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="MainPhoneNumber" ID="9E3DACB1-33D3-42AC-949F-9ED669223E5B" Type="unistring" Max="50" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Identifier" ID="9940B6D6-BAC0-46AE-A14C-1A53C2CC04C6" Type="unistring" Max="100" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Passport" ID="531BA7DD-ECD9-449D-A31D-CB819B8FC422" Type="unistring" Max="50" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="ContactPhone" ID="105D620B-0550-4C03-AA00-65EE9C8E4F44" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Section Alias="PhoneNumbers" RowAlias="" Type="coll" ID="0D98306D-0741-4FA3-BC0B-3B6459D81771">
+        <Name>
+          <LocalizedString Language="en">Phone numbers</LocalizedString>
+          <LocalizedString Language="ru">Номера телефонов</LocalizedString>
+        </Name>
+        <Field Alias="Number" ID="7DBFEABC-A1A0-413F-9F69-CF41AD9A2EEA" Type="string" Max="20" DefaultValue="" CopyBehavior="Copy">
+          <Name>
+            <LocalizedString Language="en">Number</LocalizedString>
+            <LocalizedString Language="ru">Номер</LocalizedString>
+          </Name>
+          <Description />
+        </Field>
+        <Field Alias="Comment" ID="9165846C-86F9-4C68-ADD1-F7CA5718555A" Type="unistring" Max="300" DefaultValue="" CopyBehavior="Copy">
+          <Name>
+            <LocalizedString Language="en">Comment</LocalizedString>
+            <LocalizedString Language="ru">Комментарий</LocalizedString>
+          </Name>
+          <Description />
+        </Field>
+        <DisplayFields FormatString="" />
+      </Section>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Recipients" RowAlias="" Type="tree" ID="0899D0D9-9EAE-4966-89EF-9177BCC5E1A4" SimpleSecurity="true">
+      <Name>
+        <LocalizedString Language="en">Recipients</LocalizedString>
+        <LocalizedString Language="ru">Получатели</LocalizedString>
+      </Name>
+      <Field Alias="FirstName" ID="C7D961D6-5560-4C51-82D6-31D13AB3C66B" Type="unistring" Max="50" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">FirstName</LocalizedString>
+          <LocalizedString Language="ru">Имя</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="LastName" ID="4B42B06E-C367-4A40-8CD0-C8D9D557B3A1" Type="unistring" Max="100" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Last name</LocalizedString>
+          <LocalizedString Language="ru">Фамилия</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="SecondaryName" ID="880D3616-3884-4902-BF8A-B05C1FD194AA" Type="unistring" Max="50" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Secondary name</LocalizedString>
+          <LocalizedString Language="ru">Отчество</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Sex" ID="47102324-E804-4A90-A1DF-73B66C9DB0A0" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Sex</LocalizedString>
+          <LocalizedString Language="ru">Пол</LocalizedString>
+        </Name>
+        <Description />
+        <Enum Alias="Male" Value="0">
+          <Name>
+            <LocalizedString Language="en">Male</LocalizedString>
+            <LocalizedString Language="ru">Мужской</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Female" Value="1">
+          <Name>
+            <LocalizedString Language="en">Female</LocalizedString>
+            <LocalizedString Language="ru">Женский</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="BirthYear" ID="C9530766-D837-4F20-9A2B-24FBE3D2C0CE" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Year of birth</LocalizedString>
+          <LocalizedString Language="ru">Год рождения</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="VisitorCard" ID="5C178D75-CC2D-4B90-8FFA-C60DB76D16EC" Type="refcardid" RefType="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Visitor card</LocalizedString>
+          <LocalizedString Language="ru">Карта посетителя</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Relationship" ID="1B7ABB18-3503-4D59-B8E6-EB21B31BD5CE" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Relationship</LocalizedString>
+          <LocalizedString Language="ru">Роль (кем является)</LocalizedString>
+        </Name>
+        <Description />
+        <Enum Alias="Child" Value="0">
+          <Name>
+            <LocalizedString Language="en">Child</LocalizedString>
+            <LocalizedString Language="ru">Ребенок</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Spouse" Value="1">
+          <Name>
+            <LocalizedString Language="en">Spouse</LocalizedString>
+            <LocalizedString Language="ru">Супруг(а)</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Grandson" Value="2">
+          <Name>
+            <LocalizedString Language="en">Grandson</LocalizedString>
+            <LocalizedString Language="ru">Внук</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="GreatGrandson" Value="3">
+          <Name>
+            <LocalizedString Language="en">Great-grandson</LocalizedString>
+            <LocalizedString Language="ru">Правнук</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Godson" Value="4">
+          <Name>
+            <LocalizedString Language="en">Godson</LocalizedString>
+            <LocalizedString Language="ru">Крестник</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Relative" Value="5">
+          <Name>
+            <LocalizedString Language="en">Relative</LocalizedString>
+            <LocalizedString Language="ru">Родственник</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Friend" Value="6">
+          <Name>
+            <LocalizedString Language="en">Friend</LocalizedString>
+            <LocalizedString Language="ru">Друг</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Familiar" Value="7">
+          <Name>
+            <LocalizedString Language="en">Familiar</LocalizedString>
+            <LocalizedString Language="ru">Знакомый</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Comment" ID="B7E2B7D1-1B43-4BEC-BA37-CADDC5EB55FA" Type="unistring" Max="1000" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Verified" ID="1792CD4D-CBF8-411F-9BF3-77619F53B9BF" Type="bool" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerifiedBy" ID="C00D2F18-EC6B-4E52-A343-4B4DF5B88779" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerificationDate" ID="699911D6-0B64-492A-96E8-C5D83EE9403F" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerificationDescription" ID="24B9E471-D016-47D4-9433-7657EE165BF0" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerificationType" ID="1FBB5209-8F73-498B-8823-EDF73D85BE9F" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Pasport" Value="1">
+          <Name>
+            <LocalizedString Language="en">Pasport</LocalizedString>
+            <LocalizedString Language="ru">По паспорту</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Personal" Value="4">
+          <Name>
+            <LocalizedString Language="en">Personal</LocalizedString>
+            <LocalizedString Language="ru">Знаю лично</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Recomendation" Value="5">
+          <Name>
+            <LocalizedString Language="en">By recomendation</LocalizedString>
+            <LocalizedString Language="ru">Рекомендация</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Other" Value="6">
+          <Name>
+            <LocalizedString Language="en">Other</LocalizedString>
+            <LocalizedString Language="ru">Другое</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Certificate" Value="2">
+          <Name>
+            <LocalizedString Language="en">Certificate</LocalizedString>
+            <LocalizedString Language="ru">По свидетельству</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="OtherDocument" Value="3">
+          <Name>
+            <LocalizedString Language="en">Other document</LocalizedString>
+            <LocalizedString Language="ru">По другому документу</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Section Alias="Dublicates" RowAlias="" Type="coll" ID="93A4D1E2-1F4A-454A-B883-5B67F062F892">
+        <Name>
+          <LocalizedString Language="en">Dublicates</LocalizedString>
+          <LocalizedString Language="ru">Дубликаты записи</LocalizedString>
+        </Name>
+        <Field Alias="Dublicate" ID="603B1DC4-40BE-4E39-A2F9-63CA1A5122FF" Type="refid" RefType="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" RefSection="0899D0D9-9EAE-4966-89EF-9177BCC5E1A4" DefaultValue="" CopyBehavior="Copy">
+          <Name>
+            <LocalizedString Language="en">Dublicate</LocalizedString>
+            <LocalizedString Language="ru">Дубликат</LocalizedString>
+          </Name>
+          <Description />
+        </Field>
+        <DisplayFields FormatString="" />
+      </Section>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Violations" RowAlias="" Type="coll" ID="41E01D9F-BFBA-427D-8D8A-472DBFE51326" SimpleSecurity="true">
+      <Name>
+        <LocalizedString Language="en">Violations</LocalizedString>
+        <LocalizedString Language="ru">Нарушения</LocalizedString>
+      </Name>
+      <Field Alias="Date" ID="423B26B7-B3D5-424F-BD86-0F6300042ED8" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Date</LocalizedString>
+          <LocalizedString Language="ru">Дата</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Description" ID="F299E068-E821-4ACE-9D77-C66E3FC49CFE" Type="unitext" Max="3000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Description</LocalizedString>
+          <LocalizedString Language="ru">Описание</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Duty" ID="63981D6A-F6A3-4208-B5A2-2CF09D97BC01" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Duty</LocalizedString>
+          <LocalizedString Language="ru">Дежурный</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="HeadComment" ID="09842B07-B49B-48A8-A447-731A4E4330A9" Type="unistring" Max="3000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">HeadComment</LocalizedString>
+          <LocalizedString Language="ru">Комментарий руководителя</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="RestrictionEndDate" ID="132ED9BE-131E-4297-974F-1309E0C6CF92" Type="date" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">RestrictionEndDate</LocalizedString>
+          <LocalizedString Language="ru">Срок ограничения</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="FixatedBy" ID="86636E83-E772-44E0-864C-4CCFE5DF3F9D" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="ViolationType" ID="60CB71D4-1454-4CFD-9A80-916575A6714D" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="TheftVisitors" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Воровство у других посетителей</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="TheftCenter" Value="2">
+          <Name>
+            <LocalizedString Language="ru">Воровство вещей с ограниченной выдачей</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Mess" Value="3">
+          <Name>
+            <LocalizedString Language="ru">Разбрасывание вещей</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Swearing" Value="4">
+          <Name>
+            <LocalizedString Language="ru">Ругань, споры</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Assault" Value="5">
+          <Name>
+            <LocalizedString Language="ru">Рукоприкладство</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Entrance" Value="6">
+          <Name>
+            <LocalizedString Language="ru">Проникновение в служебные помещения</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Deception" Value="7">
+          <Name>
+            <LocalizedString Language="ru">Обман с целью обхода ограничений</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Offense" Value="8">
+          <Name>
+            <LocalizedString Language="ru">Грубое оскробление сотрудника или другого посетителя</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Other" Value="9">
+          <Name>
+            <LocalizedString Language="ru">Другое</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Section Alias="Photos" RowAlias="" Type="coll" ID="C1AD0569-2F05-4415-9B56-0ACBE98D2B9C">
+        <Name>
+          <LocalizedString Language="en">Photos</LocalizedString>
+          <LocalizedString Language="ru">Фотографии</LocalizedString>
+        </Name>
+        <Field Alias="Photo" ID="2CA2B8B2-276C-477A-809F-16D59EC72E15" Type="refid" RefType="6E39AD2B-E930-4D20-AAFA-C2ECF812C2B3" DefaultValue="" CopyBehavior="Copy">
+          <Name>
+            <LocalizedString Language="en">Photo</LocalizedString>
+            <LocalizedString Language="ru">Фото</LocalizedString>
+          </Name>
+          <Description />
+        </Field>
+        <DisplayFields FormatString="" />
+      </Section>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="SecretQuestions" RowAlias="" Type="struct" ID="8B650870-1ADD-4A05-8A38-479CA2C90512" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Question" ID="5DB40FE1-A4B2-4B9F-87A5-7E596144D7C0" Type="unistring" Max="300" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Answer" ID="2A3F92DA-1F1C-4C42-98DD-6E299A34E3FA" Type="unistring" Max="300" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Comments" RowAlias="" Type="coll" ID="991A8BC7-4BF8-4203-8547-B7E173BB1840" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Comment" ID="3762C7CF-E2F5-47EB-8286-651F3DEC356F" Type="unitext" Max="300" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Author" ID="724AB840-70A1-49A0-B406-7EAE65B822DB" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="DateTime" ID="AD98A54F-3129-4512-B8D6-66E0196717F4" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Identifiers" RowAlias="" Type="coll" ID="8E04CF7F-749F-46BA-9098-043441EC2A9F" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Identifier" ID="9373AB21-67EE-482B-A9F4-8D787F732480" Type="unistring" Max="100" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Identifier</LocalizedString>
+          <LocalizedString Language="ru">Идентификатор</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="IdentifierType" ID="EE90972D-451B-459A-B152-CA23B80AC662" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Phone" Value="1">
+          <Name />
+        </Enum>
+        <Enum Alias="Passport" Value="2">
+          <Name />
+        </Enum>
+        <Enum Alias="Code" Value="0">
+          <Name />
+        </Enum>
+        <Enum Alias="BirthDate" Value="0">
+          <Name />
+        </Enum>
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Files" RowAlias="" Type="coll" ID="1002567A-0416-4927-AB55-FFEA4A965021" SimpleSecurity="true">
+      <Name />
+      <Field Alias="File" ID="A0F8E15F-9FF4-4351-9C7B-A96E84C9B836" Type="refcardid" RefType="6E39AD2B-E930-4D20-AAFA-C2ECF812C2B3" DefaultValue="" RefKind="Hard" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Name" ID="889DAA65-D4CB-4839-9EB5-3E1CAD3158E1" Type="unistring" Max="1000" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="System" RowAlias="" Type="struct" ID="EEDC19D7-6B37-427C-B384-BADB9ECAA0B3" SimpleSecurity="true">
+      <Name>
+        <LocalizedString Language="en">System properties</LocalizedString>
+        <LocalizedString Language="ru">Системные свойства</LocalizedString>
+      </Name>
+      <Field Alias="State" ID="8EC37667-C228-43A1-8C07-4477432F4D8F" Type="refid" RefType="443F55F0-C8AB-4DD3-BCBD-5328C7C9D385" RefSection="521B4477-DD10-4F57-A453-09C70ADB7799" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">State</LocalizedString>
+          <LocalizedString Language="ru">Состояние</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Kind" ID="7482637A-4FCA-494B-BC98-ED68E500E641" Type="refid" RefType="8F704E7D-A123-4917-94B4-F3B851F193B2" RefSection="C7BA000C-6203-4D7F-8C6B-5CB6F1E6F851" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Type</LocalizedString>
+          <LocalizedString Language="ru">Вид</LocalizedString>
+        </Name>
+        <Description />
+        <RefFields>
+          <RefField Alias="Kind_Name" SysField="false">Name</RefField>
+        </RefFields>
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="CategoriesList" RowAlias="" Type="coll" ID="0F0099E9-1C47-4B4F-AA5D-8CD49C3586FE" SimpleSecurity="true">
+      <Name>
+        <LocalizedString Language="en">Categaories</LocalizedString>
+        <LocalizedString Language="ru">Категории</LocalizedString>
+      </Name>
+      <Field Alias="Comment" ID="2F1D102C-957A-467D-BD51-88CAF3F5C529" Type="unitext" Max="1000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Comment</LocalizedString>
+          <LocalizedString Language="ru">Комментарий</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Category" ID="38C73F12-6EDC-42EB-98FC-16A60FB594B9" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="BigFamily" Value="0">
+          <Name>
+            <LocalizedString Language="en">Big family</LocalizedString>
+            <LocalizedString Language="ru">Многодетные</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Refugee" Value="1">
+          <Name>
+            <LocalizedString Language="en">Refugee</LocalizedString>
+            <LocalizedString Language="ru">Беженец</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="SingleParent" Value="2">
+          <Name>
+            <LocalizedString Language="en">Single parent</LocalizedString>
+            <LocalizedString Language="ru">Единственный родитель</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Retired" Value="3">
+          <Name>
+            <LocalizedString Language="en">Retired</LocalizedString>
+            <LocalizedString Language="ru">Пенсионер</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Homeless" Value="4">
+          <Name>
+            <LocalizedString Language="en">Homeless</LocalizedString>
+            <LocalizedString Language="ru">Бездомный</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Gypsies" Value="5">
+          <Name>
+            <LocalizedString Language="en">Gypsies</LocalizedString>
+            <LocalizedString Language="ru">Цыгане</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Priest" Value="7">
+          <Name>
+            <LocalizedString Language="en">Priest</LocalizedString>
+            <LocalizedString Language="ru">Священник / диакон</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="DisableInFamily" Value="8">
+          <Name>
+            <LocalizedString Language="en">Disable in family</LocalizedString>
+            <LocalizedString Language="ru">Инвалид в семье</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Poor" Value="9">
+          <Name>
+            <LocalizedString Language="en">Poor</LocalizedString>
+            <LocalizedString Language="ru">Малообеспеченный</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Military" Value="10">
+          <Name>
+            <LocalizedString Language="ru">Семья участника СВО</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Levit" Value="11">
+          <Name>
+            <LocalizedString Language="ru">Работник храма</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="Verified" ID="291C815D-E18D-493A-9A3E-9C11FA1A5F8F" Type="bool" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerifiedBy" ID="4FB0FE4E-6E62-4E94-AB2C-4780AC02F708" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerificationDate" ID="9B8CF1CC-8C3E-4601-89E6-4A6064A1C2AA" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerificationDescription" ID="A38F5ADD-226C-4F3E-9417-AD03CECB828B" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VerificationType" ID="4D1A3FEF-8799-4573-9189-FC7287C73910" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Reference" Value="1">
+          <Name>
+            <LocalizedString Language="en">Reference</LocalizedString>
+            <LocalizedString Language="ru">Справка</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Personal" Value="2">
+          <Name>
+            <LocalizedString Language="en">Personal</LocalizedString>
+            <LocalizedString Language="ru">Знаю лично</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="ByLook" Value="3">
+          <Name>
+            <LocalizedString Language="en">By look</LocalizedString>
+            <LocalizedString Language="ru">По виду</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Other" Value="5">
+          <Name>
+            <LocalizedString Language="en">Other</LocalizedString>
+            <LocalizedString Language="ru">Другое</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Recomendation" Value="4">
+          <Name>
+            <LocalizedString Language="en">Recomendation</LocalizedString>
+            <LocalizedString Language="ru">По рекомендации</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Document" Value="6">
+          <Name>
+            <LocalizedString Language="en">Document</LocalizedString>
+            <LocalizedString Language="ru">По документу</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="AdditionalHelp" RowAlias="" Type="coll" ID="22127A36-7123-4CA4-ACD5-FAC74112B292" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Date" ID="9D0BBD33-7020-4AA6-A456-495122EC7048" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Description" ID="690FBEFE-FC14-4C48-BD5D-878B63346EFD" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Employee" ID="A328CA4C-3889-4795-B1A8-F26F6204C8B7" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Comment" ID="46EF1A47-0E37-4AA2-8575-D4403DF5DBE9" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="AdditionalHelpEx" RowAlias="" Type="coll" ID="705446C7-3EEA-42F1-BFDA-B90DC3188A8C" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Date" ID="C3BB685A-F76B-4E13-866E-DA79D983057D" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Description" ID="D8DBEBCF-3CAE-49D5-81D3-149B7D313F78" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Employee" ID="BD5C3BA3-4F01-448E-8BD0-D8C1D0DB5843" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Comment" ID="5CB70415-12E5-45EB-A382-B83A89DC4954" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+  </Sections>
+</CardDefinition>

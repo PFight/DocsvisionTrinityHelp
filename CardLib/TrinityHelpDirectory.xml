@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="F6FE2E7F-090E-4192-94EC-FBDA5A483338" Alias="HelpDirectory" Version="0" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="" Dictionary="true" IconFile="" NonArchivable="true" DefaultSecurity="" TypeName="">
+  <Name>
+    <LocalizedString Language="en">Help directory</LocalizedString>
+    <LocalizedString Language="ru-RU">Справочник помощи</LocalizedString>
+  </Name>
+  <Sections>
+    <Section Alias="HelpItems" RowAlias="" Type="coll" ID="25E09FEC-15BB-45FF-B532-5B19A2964144">
+      <Name>
+        <LocalizedString Language="en">Items</LocalizedString>
+        <LocalizedString Language="ru">Виды вещей</LocalizedString>
+      </Name>
+      <Field Alias="Code" ID="2097BF8D-985D-42BD-95BA-C82946259443" Type="string" Max="100" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Code</LocalizedString>
+          <LocalizedString Language="ru">Код</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Name" ID="81E16E05-4173-45F4-868E-D935E6AC9ADE" Type="string" Max="100" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Name</LocalizedString>
+          <LocalizedString Language="ru">Название</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="ShortName" ID="D6E914A8-EA5C-4B97-9856-32DB7D26801C" Type="string" Max="15" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Short name</LocalizedString>
+          <LocalizedString Language="ru">Короткое имя</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Description" ID="DD6DED2C-590A-4B84-8098-8A17E17C6740" Type="text" Max="1000" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Description</LocalizedString>
+          <LocalizedString Language="ru">Описание</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <Field Alias="Image" ID="A984C11F-B663-4958-9763-547175665AEB" Type="image" DefaultValue="" CopyBehavior="Copy">
+        <Name>
+          <LocalizedString Language="en">Image</LocalizedString>
+          <LocalizedString Language="ru">Изображение</LocalizedString>
+        </Name>
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+  </Sections>
+</CardDefinition>
