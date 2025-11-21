@@ -6,5 +6,5 @@ export interface IOrderService {
     create(request: CreateOrderRequest): Promise<CreateOrderResponse>;
 }
 
-export type $Order = { createAccountingDocument: IOrderService };
-export const $Order = serviceName((x: $Order) => x.createAccountingDocument);
+export type $Order = { order: IOrderService };
+export const $Order = serviceName((x: $Order) => x.order);
