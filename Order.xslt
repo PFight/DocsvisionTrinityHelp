@@ -81,12 +81,13 @@
 		<html>
 			<head>
 				<title>
-					<xsl:variable name="numberid" select="//Order[1]/MainInfo/@RegNumber"/>
+					<xsl:variable name="numberid" select="//Order[1]/MainInfo/@Number"/>
 					Заказ №<xsl:value-of select="//Order[1]/Numbers/NumbersRow[@RowID=$numberid]/@Number"/>
 				</title>
 				<style type="text/css">
 					.fieldheader {
 						font-weight: bold;
+                                                padding-top: 15px;
 					}
 					td {
 						vertical-align: top;
@@ -125,11 +126,12 @@
 				<table width="100%" border="1">
 						<th>№</th>
 						<th>Назание</th>
-						<th>Размер</th>
-						<th>Возраст</th>
+						<th>Размер</th>						
 						<th>Пол</th>
+						<th>Сезон</th>
 						<th>Стиль</th>
 						<th>Цвет</th>
+						<th>Возраст</th>
 						<th>Комментарий</th>
 						<xsl:for-each select="//Order[1]/OrderItems/OrderItemsRow">
 							<tr>
@@ -142,18 +144,18 @@
 								<td>
 									<xsl:value-of select="@Size"/>
 								</td>
-								<td>
-									<xsl:choose>
-										<xsl:when test="@Age = 1">Ребенок</xsl:when>
-										<xsl:when test="@Age = 2">Средний</xsl:when>
-										<xsl:when test="@Age = 3">Пенсионер</xsl:when>
-										<xsl:when test="@Age = 0">Неважно</xsl:when>
-									</xsl:choose>
-								</td>
+								
 								<td>
 									<xsl:choose>
 										<xsl:when test="@Sex = 0">Женское</xsl:when>
 										<xsl:when test="@Sex = 1">Мужское</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Season = 0">Лето</xsl:when>
+										<xsl:when test="@Season = 1">Демисезон</xsl:when>
+										<xsl:when test="@Season = 2">Зима</xsl:when>
 									</xsl:choose>
 								</td>
 								<td>
@@ -170,6 +172,233 @@
 										<xsl:when test="@Color = 1">Темный</xsl:when>
 										<xsl:when test="@Color = 2">Светлый</xsl:when>
 										<xsl:when test="@Color = 3">Неяркий</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Age = 1">Ребенок</xsl:when>
+										<xsl:when test="@Age = 2">Средний</xsl:when>
+										<xsl:when test="@Age = 3">Пенсионер</xsl:when>
+										<xsl:when test="@Age = 0">Неважно</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:value-of select="@Details"/>
+								</td>
+							</tr>
+						</xsl:for-each>
+					</table>
+
+<div class="fieldheader">
+					<xsl:variable name="numberid" select="//Order[1]/MainInfo/@Number"/>
+					Заказ №<xsl:value-of select="//Order[1]/Numbers/NumbersRow[@RowID=$numberid]/@Number"/>
+				</div>
+				<div class="digest">
+					<xsl:value-of select="//Order[1]/MainInfo/@Digest"/>
+				</div>
+				<table width="100%" border="1">
+						<th>№</th>
+						<th>Назание</th>
+						<th>Размер</th>						
+						<th>Пол</th>
+						<th>Сезон</th>
+						<th>Стиль</th>
+						<th>Цвет</th>
+						<th>Возраст</th>
+						<th>Комментарий</th>
+						<xsl:for-each select="//Order[1]/OrderItems/OrderItemsRow">
+							<tr>
+								<td>
+									<xsl:value-of select="@Number"/>
+								</td>
+								<td class="name">
+									<xsl:value-of select="@Name"/>
+								</td>
+								<td>
+									<xsl:value-of select="@Size"/>
+								</td>
+								
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Sex = 0">Женское</xsl:when>
+										<xsl:when test="@Sex = 1">Мужское</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Season = 0">Лето</xsl:when>
+										<xsl:when test="@Season = 1">Демисезон</xsl:when>
+										<xsl:when test="@Season = 2">Зима</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Style = 0">Неважно</xsl:when>
+										<xsl:when test="@Style = 1">Деловой</xsl:when>
+										<xsl:when test="@Style = 2">Спортивный</xsl:when>
+										<xsl:when test="@Style = 3">Домашний</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Color = 0">Неважно</xsl:when>
+										<xsl:when test="@Color = 1">Темный</xsl:when>
+										<xsl:when test="@Color = 2">Светлый</xsl:when>
+										<xsl:when test="@Color = 3">Неяркий</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Age = 1">Ребенок</xsl:when>
+										<xsl:when test="@Age = 2">Средний</xsl:when>
+										<xsl:when test="@Age = 3">Пенсионер</xsl:when>
+										<xsl:when test="@Age = 0">Неважно</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:value-of select="@Details"/>
+								</td>
+							</tr>
+						</xsl:for-each>
+					</table>
+
+<div class="fieldheader">
+					<xsl:variable name="numberid" select="//Order[1]/MainInfo/@Number"/>
+					Заказ №<xsl:value-of select="//Order[1]/Numbers/NumbersRow[@RowID=$numberid]/@Number"/>
+				</div>
+				<div class="digest">
+					<xsl:value-of select="//Order[1]/MainInfo/@Digest"/>
+				</div>
+				<table width="100%" border="1">
+						<th>№</th>
+						<th>Назание</th>
+						<th>Размер</th>						
+						<th>Пол</th>
+						<th>Сезон</th>
+						<th>Стиль</th>
+						<th>Цвет</th>
+						<th>Возраст</th>
+						<th>Комментарий</th>
+						<xsl:for-each select="//Order[1]/OrderItems/OrderItemsRow">
+							<tr>
+								<td>
+									<xsl:value-of select="@Number"/>
+								</td>
+								<td class="name">
+									<xsl:value-of select="@Name"/>
+								</td>
+								<td>
+									<xsl:value-of select="@Size"/>
+								</td>
+								
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Sex = 0">Женское</xsl:when>
+										<xsl:when test="@Sex = 1">Мужское</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Season = 0">Лето</xsl:when>
+										<xsl:when test="@Season = 1">Демисезон</xsl:when>
+										<xsl:when test="@Season = 2">Зима</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Style = 0">Неважно</xsl:when>
+										<xsl:when test="@Style = 1">Деловой</xsl:when>
+										<xsl:when test="@Style = 2">Спортивный</xsl:when>
+										<xsl:when test="@Style = 3">Домашний</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Color = 0">Неважно</xsl:when>
+										<xsl:when test="@Color = 1">Темный</xsl:when>
+										<xsl:when test="@Color = 2">Светлый</xsl:when>
+										<xsl:when test="@Color = 3">Неяркий</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Age = 1">Ребенок</xsl:when>
+										<xsl:when test="@Age = 2">Средний</xsl:when>
+										<xsl:when test="@Age = 3">Пенсионер</xsl:when>
+										<xsl:when test="@Age = 0">Неважно</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:value-of select="@Details"/>
+								</td>
+							</tr>
+						</xsl:for-each>
+					</table>
+
+<div class="fieldheader">
+					<xsl:variable name="numberid" select="//Order[1]/MainInfo/@Number"/>
+					Заказ №<xsl:value-of select="//Order[1]/Numbers/NumbersRow[@RowID=$numberid]/@Number"/>
+				</div>
+				<div class="digest">
+					<xsl:value-of select="//Order[1]/MainInfo/@Digest"/>
+				</div>
+				<table width="100%" border="1">
+						<th>№</th>
+						<th>Назание</th>
+						<th>Размер</th>						
+						<th>Пол</th>
+						<th>Сезон</th>
+						<th>Стиль</th>
+						<th>Цвет</th>
+						<th>Возраст</th>
+						<th>Комментарий</th>
+						<xsl:for-each select="//Order[1]/OrderItems/OrderItemsRow">
+							<tr>
+								<td>
+									<xsl:value-of select="@Number"/>
+								</td>
+								<td class="name">
+									<xsl:value-of select="@Name"/>
+								</td>
+								<td>
+									<xsl:value-of select="@Size"/>
+								</td>
+								
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Sex = 0">Женское</xsl:when>
+										<xsl:when test="@Sex = 1">Мужское</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Season = 0">Лето</xsl:when>
+										<xsl:when test="@Season = 1">Демисезон</xsl:when>
+										<xsl:when test="@Season = 2">Зима</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Style = 0">Неважно</xsl:when>
+										<xsl:when test="@Style = 1">Деловой</xsl:when>
+										<xsl:when test="@Style = 2">Спортивный</xsl:when>
+										<xsl:when test="@Style = 3">Домашний</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Color = 0">Неважно</xsl:when>
+										<xsl:when test="@Color = 1">Темный</xsl:when>
+										<xsl:when test="@Color = 2">Светлый</xsl:when>
+										<xsl:when test="@Color = 3">Неяркий</xsl:when>
+									</xsl:choose>
+								</td>
+								<td>
+									<xsl:choose>
+										<xsl:when test="@Age = 1">Ребенок</xsl:when>
+										<xsl:when test="@Age = 2">Средний</xsl:when>
+										<xsl:when test="@Age = 3">Пенсионер</xsl:when>
+										<xsl:when test="@Age = 0">Неважно</xsl:when>
 									</xsl:choose>
 								</td>
 								<td>
