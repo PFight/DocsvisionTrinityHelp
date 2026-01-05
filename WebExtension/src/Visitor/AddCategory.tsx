@@ -84,6 +84,26 @@ const categories = [
       "valueCode": 0
     },
     {
+      "key": "Military",
+      "value": "Семья участника СВО",
+      "valueCode": 0
+    },
+    {
+      "key": "Priest",
+      "value": "Священник / дьякон",
+      "valueCode": 7
+    },
+    {
+      "key": "Levit",
+      "value": "Работник православного храма",
+      "valueCode": 11
+    },
+    {
+      "key": "DisableInFamily",
+      "value": "Инвалид в семье",
+      "valueCode": 8
+    },
+    {
       "key": "Refugee",
       "value": "Беженец",
       "valueCode": 1
@@ -109,21 +129,6 @@ const categories = [
       "valueCode": 5
     },
     {
-      "key": "Orthodox",
-      "value": "Православный христианин",
-      "valueCode": 6
-    },
-    {
-      "key": "Priest",
-      "value": "Священник / дьякон",
-      "valueCode": 7
-    },
-    {
-      "key": "DisableInFamily",
-      "value": "Инвалид в семье",
-      "valueCode": 8
-    },
-    {
       "key": "Poor",
       "value": "Малообеспеченный",
       "valueCode": 9
@@ -132,9 +137,14 @@ const categories = [
 
 const verifications =  [
     {
-      "key": "Other",
-      "value": "Другое",
-      "valueCode": 5
+      "key": "Document",
+      "value": "По документу",
+      "valueCode": 6
+    },
+    {
+      "key": "Reference",
+      "value": "Справка",
+      "valueCode": 1
     },
     {
       "key": "Personal",
@@ -152,8 +162,8 @@ const verifications =  [
       "valueCode": 4
     },
     {
-      "key": "Reference",
-      "value": "Справка",
-      "valueCode": 1
+      "key": "Other",
+      "value": "Другое (указать что)",
+      "valueCode": 5
     }
   ];
