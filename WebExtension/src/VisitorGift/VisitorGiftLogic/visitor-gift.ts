@@ -1,8 +1,13 @@
+import { Layout } from "@docsvision/webclient/System/Layout";
 import { getGift, saveGift } from "./firebase";
 import { Gift, GiftItem } from "./interfaces";
 import { itemNames, itemRestrictions } from "./items";
 import { addPerson, initPersonSelect } from "./person-select";
 import Toastify from "toastify-js";
+import { TextBox } from "@docsvision/webclient/Platform/TextBox";
+import { DateTimePicker } from "@docsvision/webclient/Platform/DateTimePicker";
+import { getVisitorBirthDateCode } from "../../Visitor/GetVisitorBirthDateCode";
+import { $MessageBox } from "@docsvision/webclient/System/$MessageBox";
 
 export let onVisitorGiftAddedCallback: (gift: Gift) => void;
 
@@ -34,7 +39,7 @@ let getSelectedPerson = () => {
     return personList.querySelector(".gift-add-item__person-list-item.selected")?.getAttribute("data-name");
 }
 
-export function onVisitorGiftOpen() {
+export function onVisitorGiftOpen(layout: Layout) {
     let addItemInput = document.getElementById("addItemName")! as HTMLInputElement;
     let addItemButton = document.getElementById("addItemButton")!;
     let addItemButton2 = document.getElementById("addItemButton2")!;
@@ -44,17 +49,17 @@ export function onVisitorGiftOpen() {
     let clearItemButton = document.getElementById("clearItemButton")!;
     let autoClearInput = document.getElementById("autoClearInput")! as HTMLInputElement;
     let addItemCards = document.querySelectorAll<HTMLElement>(".gift-add-item__card");
+
+    let passportTextBox = layout.controls.get<TextBox>('passport');
+    let phoneTextBox = layout.controls.get<TextBox>("phone");
+    let birthDatePicker = layout.controls.get<DateTimePicker>("birthDate");
     
     
  
     let items = document.getElementById("giftItems")!;
     let itemTemplate = document.getElementById("giftItemTemplate")! as HTMLTemplateElement;
-    let fioInput = document.getElementById("fioInput")! as HTMLInputElement;
-    let phoneInput = document.getElementById("phoneInput")! as HTMLInputElement;
-    let passportInput = document.getElementById("passportInput")! as HTMLInputElement;
     let dateInput = document.getElementById("dateInput")! as HTMLInputElement;
     dateInput.value = getDateTimeInputValue(new Date());
-    let offenderInput = document.getElementById("offenderInput")! as HTMLInputElement;
     let saveButton = document.getElementById("save")!;
     let giftNumber = document.getElementById("giftNumber")! as HTMLInputElement;
     let loadGiftButton = document.getElementById("loadGift")! as HTMLButtonElement;
@@ -164,8 +169,8 @@ export function onVisitorGiftOpen() {
     let saving = false;
 
     let save = async () => {
-        if (!phoneInput.value && !passportInput.value && !fioInput.value) {
-            alert("Укажите либо номер телефона, либо номер паспорта, либо фамилию и инициалы");
+        if (!phoneTextBox.hasValue() && !passportTextBox.hasValue() && !birthDatePicker.hasValue()) {
+            alert("Укажите либо номер телефона, либо номер паспорта, либо дату рождения!");
             return;
         }
 
@@ -193,13 +198,18 @@ export function onVisitorGiftOpen() {
             return { id: id || name, person } as GiftItem;
         });
 
+        let phone = phoneTextBox.value ?? "";
+        if (!phoneTextBox.hasValue() && !passportTextBox.hasValue()) {
+            phone = getVisitorBirthDateCode(birthDatePicker);
+        }
+
         return {
             id: giftNumber.value,
-            fio: fioInput.value?.toLowerCase(),
-            phone: phoneInput.value,
-            passport: passportInput.value,
+            fio: "",
+            phone: phone,
+            passport: passportTextBox.value ?? "",
             date: new Date(dateInput.value),
-            offender: offenderInput.checked,
+            offender: false,
             items
         } as Gift;
     }
@@ -211,12 +221,14 @@ export function onVisitorGiftOpen() {
         if (onLoadGift) {
             await onLoadGift(gift);
         }
+
+        if ((gift.phone != phoneTextBox.value && gift.phone != getVisitorBirthDateCode(birthDatePicker)) || gift.passport != gift.passport) {
+            layout.getService($MessageBox).showWarning("Это посещение другого посетителя!");
+            return;
+        }
+
         giftNumber.value = gift.id;
-        fioInput.value = gift.fio;
-        phoneInput.value = gift.phone;
-        passportInput.value = gift.passport;
         dateInput.value = getDateTimeInputValue(gift.date);
-        offenderInput.checked = gift.offender;
         for (let item of gift.items) {
             if (typeof(item) == "object") {
                 addItem(item.id, item.person);
@@ -292,20 +304,12 @@ export function loadPersons(visits: Gift[]) {
 export function cleanGift() {
     let personList = document.getElementById("personList")! as HTMLElement; 
     let items = document.getElementById("giftItems")!;
-    let fioInput = document.getElementById("fioInput")! as HTMLInputElement;
-    let phoneInput = document.getElementById("phoneInput")! as HTMLInputElement;
-    let passportInput = document.getElementById("passportInput")! as HTMLInputElement;
     let dateInput = document.getElementById("dateInput")! as HTMLInputElement;
     dateInput.value = getDateTimeInputValue(new Date());
-    let offenderInput = document.getElementById("offenderInput")! as HTMLInputElement;
     let giftNumber = document.getElementById("giftNumber")! as HTMLInputElement;
 
     items.innerHTML = "";         
-    fioInput.value = "";
-    phoneInput.value = "";
-    passportInput.value = "";
     dateInput.value = getDateTimeInputValue(new Date());
-    offenderInput.checked = false;
     giftNumber.value = "";
     personList.innerHTML = "";
 }

@@ -1,9 +1,14 @@
+import { Layout } from "@docsvision/webclient/System/Layout";
 import { fillItemsFromGenerations, getItem, getVisitorGifts, saveGift } from "./firebase";
 import { Gift, GiftItem } from "./interfaces";
 import { chlidrenItems, isChildItem, itemNames, itemRestrictions } from "./items";
 import { ageLocalization, categoryLocalization, genderLocalization } from "./localization";
 import { cleanGift, loadGift, loadPersons, onVisitorGiftOpen, processCurrentSeasonVisits, setOnOnLoadGiftCallback, setOnVisitorGiftAddedCallback } from "./visitor-gift";
 import Toastify from "toastify-js";
+import { TextBox } from "@docsvision/webclient/Platform/TextBox";
+import { $MessageBox } from "@docsvision/webclient/System/$MessageBox";
+import { DateTimePicker } from "@docsvision/webclient/Platform/DateTimePicker";
+import { getVisitorBirthDateCode } from "../../Visitor/GetVisitorBirthDateCode";
 
 const Seasons = [[11, 0, 1], [2, 3, 4], [5, 6, 7], [8, 9, 10]];
 const MOTH_VISITS_LIMIT = 8;
@@ -12,20 +17,17 @@ let LIMITS_PASPORT = "<b>Лимит по паспорту:</b> 5 детских 
 let LIMITS_PHONE = "<b>Лимит по телефону:</b> 10 детских вещей в сезон, не более 3 одной категории";
 let LIMITS_CHILDREN = "<b>Если больше 3-х детей:</b> нужны подтверждающие документы";
 
-export function onVisitorOpen() {
-    onVisitorGiftOpen();
+export function onVisitorOpen(layout: Layout) {
+    onVisitorGiftOpen(layout);
 
-    let phoneCodeInput = document.getElementById("phoneCode")! as HTMLInputElement;
-    let passportCodeInput = document.getElementById("passportCode")! as HTMLInputElement;
     let currentMonthElement = document.getElementById("currentMonth")! as HTMLElement;
     let limitsElement = document.getElementById("limits")! as HTMLElement;
     let identityElement = document.getElementById("identity")! as HTMLElement;
     let historyElement = document.getElementById("visitHistory") as HTMLElement;
-    let viewHistoryButton = document.getElementById("viewHistory")!;
     let offenderBlock = document.getElementById("offender")!;
-    let printButton = document.getElementById("printButton");
-    printButton?.addEventListener("click", () => window.print());
-
+    let passportTextBox = layout.controls.get<TextBox>('passport');
+    let phoneTextBox = layout.controls.get<TextBox>("phone");
+    let birthDatePicker = layout.controls.get<DateTimePicker>("birthDate");
 
     let clean = () => {
         historyElement.innerHTML = '';
@@ -38,12 +40,13 @@ export function onVisitorOpen() {
         let giftElement = document.getElementById("gift");
         giftElement?.classList.remove("hide");
 
+        let passportCode = passportTextBox.value ?? "";
+        let phoneCode = phoneTextBox.value ?? "";
+        if (!passportCode && !phoneCode) {
+            phoneCode = getVisitorBirthDateCode(birthDatePicker);
+        }
 
-        let passportCode = passportCodeInput.value;
-        let phoneCode = phoneCodeInput.value;
         let visits = await getVisitorGifts(phoneCode, passportCode);
-
-
         
         identityElement.innerText = phoneCode + " " + passportCode;
         if (visits.length == 0) {
@@ -77,10 +80,7 @@ export function onVisitorOpen() {
         }
 
         cleanGift();
-        let phoneInput = document.getElementById("phoneInput") as HTMLInputElement;
-        let passportInput = document.getElementById("passportInput") as HTMLInputElement;
-        passportInput.value = passportCode;
-        phoneInput.value = phoneCode;
+
         loadPersons(visits);
 
         showVisits(visits);
@@ -121,21 +121,15 @@ export function onVisitorOpen() {
     setOnOnLoadGiftCallback(async (gift) => {
         let changed = false;
         if (gift.passport) {
-            changed = passportCodeInput.value != gift.passport; 
-            passportCodeInput.value = gift.passport;
+            changed = passportTextBox.value != gift.passport; 
         }
         if (gift.phone) {
-            changed = changed || phoneCodeInput.value != gift.phone; 
-            phoneCodeInput.value = gift.phone;
+            changed = changed || phoneTextBox.value != gift.phone; 
         }
         if (changed) {
-            await show(gift);
+            layout.getService($MessageBox).showWarning("Это посещение другого посетителя!");
         }
     });
-
-    viewHistoryButton.addEventListener("click", show as any);
-    phoneCodeInput.addEventListener("keyup", onCodeInput());
-    passportCodeInput.addEventListener("keyup", onCodeInput());
 
     function showVisits(visits: Gift[]) {
         historyElement.innerHTML = '';
@@ -180,32 +174,9 @@ export function onVisitorOpen() {
         processCurrentSeasonVisits(currentSeason);
     }
 
-    function onCodeInput(): any {
-        return async (ev: KeyboardEvent) => {
-            if (!(ev.target! as HTMLInputElement).value) {
-                clean();
-            } else {
-                if (ev.key == 'Enter') {
-                    await show();
-                    phoneCodeInput.value = '';
-                    passportCodeInput.value = '';
-                    // window.print();
-                }
-            }
-        };
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlPhone = urlParams.get('phone');
-    const urlPassport = urlParams.get('passport');
-    if (urlPhone) {
-        phoneCodeInput.value = urlPhone;
-        urlParams.delete('phone');
-        show();
-    } else if (urlPassport) {
-        passportCodeInput.value = urlPassport;
-        show(); 
-    }
+    show();
+    passportTextBox.params.dataChanged.subscribe(() => show());
+    phoneTextBox.params.dataChanged.subscribe(() => show());
 }
 
 function createVisitView(visit: Gift) {

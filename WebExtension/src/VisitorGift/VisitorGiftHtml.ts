@@ -1,16 +1,4 @@
 export const VisitorGiftHtml = `
-    <div id="controls" class="visitor-controls">
-        <label>
-            <div class="large-input-label">Номер телефона (последние 5 цифр):</div> 
-            <input class="large-input" id="phoneCode" />
-        </label>
-        <label>
-            <div class="large-input-label">Номер паспорта (последние 5 цифр):</div> 
-            <input class="large-input" id="passportCode" />
-        </label>
-        <button class="large-button" id="viewHistory">Загрузить</button>
-        <button class="large-button" id="printButton">Печать</button>
-    </div>
     <div id="visitorPanel">
         <div id="result" class="visitor-panel-side">
             <div id="identity">
@@ -51,40 +39,15 @@ export const VisitorGiftHtml = `
         <div id="gift" class="visitor-panel-side">
             <table class="gift-fields">
                 <tr class="gift-field">
-                    <td class="gift-field__label">Последние 5 цифры номера телефона: </td>
-                    <td class="gift-field__input-container">
-                        <input id="phoneInput" class="gift-field__input" />
-                    </td>
-                </tr>
-                <tr class="gift-field">
-                    <td class="gift-field__label">Последние 5 цифры номера паспорта: </td>
-                    <td class="gift-field__input-container">
-                        <input id="passportInput" class="gift-field__input" />
-                    </td>
-                </tr>
-                <tr class="gift-field">
-                    <td class="gift-field__label">Фамилия И.О. (если нет номера): </td>
-                    <td class="gift-field__input-container">
-                        <input id="fioInput" class="gift-field__input" />
-                    </td>
-                </tr>
-                <tr class="gift-field">
                     <td class="gift-field__label">Дата: </td>
                     <td class="gift-field__input-container">
                         <input id="dateInput" type="datetime-local" class="gift-field__input" />
-                    </td>
-                </tr>
-                <tr class="gift-field">
-                    <td class="gift-field__label">Нарушитель: </td>
-                    <td class="gift-field__input-container">
-                        <input id="offenderInput" type="checkbox" class="gift-field__input" />
                     </td>
                 </tr>
                 <tr class="gift-field gift-add-item">
                     <td class="gift-field__label">Имя: </td>
                     <td class="gift-field__input-container">
                         <button id="addItemPerson" readonly class="gift-add-item__button" >Добавить имя</button>
-                        <button id="clearPersonButton" class="gift-add-item__button" >Удалить лишние</button>
                         <dialog id="nameSelectDialog">
                             <input class="name-select__input" id="nameSearch" tabindex="0" />
                             <button id="addNameButton" class="gift-add-item__button" >Добавить имя</button>

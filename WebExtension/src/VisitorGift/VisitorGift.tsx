@@ -31,7 +31,7 @@ export class VisitorGift extends BaseControl<VisitorGiftParams, IVisitorGiftStat
 
     /** Вызывается после отображения контрола в DOM браузера */
     init() {
-        onVisitorOpen();
+        onVisitorOpen(this.layout);
     }
 
     /**
