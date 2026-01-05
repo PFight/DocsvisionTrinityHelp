@@ -20,7 +20,7 @@ import * as OrderState from "./Order/StateChange";
 import { $Order } from "./Order/$Order";
 import { OrderService } from "./Order/OrderService";
 import * as VisitorOrder from "./Order/Visitor";
-
+import { VisitorGift } from "./VisitorGift/VisitorGift";
 
 // Главная входная точка всего расширения
 // Данный файл должен импортировать прямо или косвенно все остальные файлы, 
@@ -39,6 +39,7 @@ extensionManager.registerExtension({
         Service.fromFactory($Order, (services: $RequestManager) => new OrderService(services))
     ],
     controls: [
+        { controlTypeName: "VisitorGift", constructor: VisitorGift }
     ],
     initialize() {
         app.folderPluginProvider.addFactory(new VisitorsFolderPluginFactory());

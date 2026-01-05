@@ -8,7 +8,10 @@
     "watch": "concurrently \"rollup -c rollup.config.js --watch\" \"gulp watch\""
   },
   "author": "Docsvision",
-  "dependencies": {},
+  "dependencies": {
+    "firebase": "^8.10.0",
+    "toastify-js": "^1.12.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/DocsVision/WebClient-Samples.git"
@@ -18,6 +21,7 @@
     "@docsvision/web": "^5.17.0",
     "@docsvision/webclient": "^5.17.0",
     "@docsvision/webclient-extension-build": "^5.17.0",
+    "@types/toastify-js": "^1.12.3",
     "concurrently": "^5.3.0"
   }
 }

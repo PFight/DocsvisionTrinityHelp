@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Controls>
+    <Control Name="VisitorGift" DisplayName="VisitorGift">
+        <Properties>
+            <!-- Имя элемента управления в разметке -->
+            <Property Type="Name" />
+            <!-- Свойство для произвольной информации, используемой скриптами -->
+            <Property Type="Tag"/>
+            <!-- Должен ли контрол получать фокус по Tab -->
+            <Property Type="TabStop" DefaultValue="True" />
+            <!-- Подсказка -->
+            <Property Type="Tip" />
+            
+            <!-- CSS-классы -->
+            <Property Type="StandardCssClass" DefaultValue="visitor-gift" />
+        </Properties>
+        <Events>
+        </Events>
+    </Control>
+</Controls>
