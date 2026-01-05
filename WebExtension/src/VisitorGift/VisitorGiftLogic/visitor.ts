@@ -81,7 +81,7 @@ export function onVisitorOpen(layout: Layout) {
 
         cleanGift();
 
-        loadPersons(visits);
+        loadPersons(layout);
 
         showVisits(visits);
 

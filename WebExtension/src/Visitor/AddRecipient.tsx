@@ -16,6 +16,7 @@ import { $ControlStore } from "@docsvision/webclient/System/LayoutServices";
 import { Dropdown } from "@docsvision/webclient/Platform/Dropdown";
 import { Block } from "@docsvision/webclient/Platform/Block";
 import { NumberControl } from "@docsvision/webclient/Platform/Number";
+import { loadPersons } from "../VisitorGift/VisitorGiftLogic/visitor-gift";
 
 export function addRecipient(sender: LayoutControl) {
     let controls = sender.layout.getService($ControlStore);
@@ -75,6 +76,7 @@ export function addRecipient(sender: LayoutControl) {
         verificationDateCell.value = verifiedDate.value;
 
         table.save();
+        loadPersons(sender.layout);
 
         commonHost.unmount();
     };

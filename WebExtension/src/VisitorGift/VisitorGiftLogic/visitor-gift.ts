@@ -251,7 +251,7 @@ export function onVisitorGiftOpen(layout: Layout) {
         load();
     }
 
-    initPersonSelect();
+    initPersonSelect(layout);
 }
 
 export function loadCardRestrictions() {
@@ -274,30 +274,15 @@ export function loadCardRestrictions() {
     }
 }
 
-export function loadPersons(visits: Gift[]) {
-    let persons: string[] = [];
+export function loadPersons(layout: Layout) {
+    let personList = document.getElementById("personList")! as HTMLElement;
+    personList.innerHTML = "";
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const personsParam = urlParams.get('persons');
-    if (personsParam) {
-        persons = JSON.parse(personsParam);
-        urlParams.delete('persons');
-        for (const p of persons) {
-            addPerson(p);
-        }
-    } else {
-        for (let visit of visits) {
-            if (visit.items) {
-                for (let item of visit.items) {
-                    if (typeof(item) == "object") {
-                        if (!persons.includes(item.person)) {
-                            persons.push(item.person);
-                            addPerson(item.person);
-                        }
-                    }
-                }
-            }
-        }
+    const firstNameTextBox = layout.controls.get<TextBox>("firstName");
+    addPerson(firstNameTextBox.value);
+    const recipientFirstNameControls = layout.controls.get<TextBox[]>("recipientFirstName");
+    for (let i = 0; i < recipientFirstNameControls.length; i++) {
+        addPerson(recipientFirstNameControls[i].value);
     }
 }
 
