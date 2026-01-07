@@ -8,6 +8,12 @@ import { TextBox } from "@docsvision/webclient/Platform/TextBox";
 import { DateTimePicker } from "@docsvision/webclient/Platform/DateTimePicker";
 import { getVisitorBirthDateCode } from "../../Visitor/GetVisitorBirthDateCode";
 import { $MessageBox } from "@docsvision/webclient/System/$MessageBox";
+import { $RequestManager } from "@docsvision/webclient/System/$RequestManager";
+import { $ApplicationSettings, $CurrentEmployeeId } from "@docsvision/webclient/StandardServices";
+import { $CardId } from "@docsvision/webclient/System/LayoutServices";
+import { EMPTY_GUID } from "@docsvision/webclient/System/GuidUtils";
+import { Table } from "@docsvision/webclient/Platform/Table";
+import { Dropdown } from "@docsvision/webclient/Platform/Dropdown";
 
 export let onVisitorGiftAddedCallback: (gift: Gift) => void;
 
@@ -36,7 +42,12 @@ export function processCurrentSeasonVisits(visits: Gift) {
 let getSelectedPerson = () => {
     let personList = document.getElementById("personList")! as HTMLElement;
 
-    return personList.querySelector(".gift-add-item__person-list-item.selected")?.getAttribute("data-name");
+    let person = personList.querySelector(".gift-add-item__person-list-item.selected");
+    if (person) {
+        return { name: person.getAttribute("data-name"), id: person.getAttribute("data-id") };
+    } else {
+        return null;
+    }
 }
 
 export function onVisitorGiftOpen(layout: Layout) {
@@ -66,7 +77,7 @@ export function onVisitorGiftOpen(layout: Layout) {
 
 
 
-    let addItem = async (id: string, person: string, count: number = 1) => {
+    let addItem = async (id: string, person: { id: string, name: string }, count: number = 1) => {
         let code: number | null = null;
         try {
             code = parseInt(id)
@@ -74,14 +85,14 @@ export function onVisitorGiftOpen(layout: Layout) {
         }
         let deleteItem = (itemElement: HTMLElement) => {
             itemElement.remove();
-            let gift = getCurrentGift();
+            let gift = getCurrentGift(layout.getService());
             onVisitorGiftAddedCallback(gift);
             loadCardRestrictions();
         }
 
         let deleteItemClick = (ev: Event) => {
             deleteItem((ev.target as HTMLElement).parentElement as HTMLElement);
-            let gift = getCurrentGift();
+            let gift = getCurrentGift(layout.getService());
             onVisitorGiftAddedCallback(gift);
             loadCardRestrictions();
         }
@@ -91,7 +102,8 @@ export function onVisitorGiftOpen(layout: Layout) {
                 let name = itemNames[code];
                 let itemElement = document.importNode(itemTemplate.content, true);
                 itemElement.querySelector(".gift-item__name")!.textContent = name;
-                itemElement.querySelector(".gift-item__person")!.textContent = person;
+                itemElement.querySelector(".gift-item__person")!.textContent = person?.name ?? "";
+                itemElement.querySelector<HTMLElement>(".gift-item__person")!.setAttribute("data-id", person?.id);
                 itemElement.querySelector(".gift-item__id")!.textContent = id;
                 itemElement.querySelector(".gift-item__delete")!.addEventListener("click", deleteItemClick)
                 item = itemElement.querySelector<HTMLElement>(".gift-item")!;
@@ -99,7 +111,8 @@ export function onVisitorGiftOpen(layout: Layout) {
             } else {
                 let itemElement = document.importNode(itemTemplate.content, true);
                 itemElement.querySelector(".gift-item__id")!.textContent = id;
-                itemElement.querySelector(".gift-item__person")!.textContent = person;
+                itemElement.querySelector(".gift-item__person")!.textContent = person?.name ?? "";
+                itemElement.querySelector<HTMLElement>(".gift-item__person")!.setAttribute("data-id", person?.id);
                 itemElement.querySelector(".gift-item__delete")?.addEventListener("click", deleteItemClick)
                 item = itemElement.querySelector<HTMLElement>(".gift-item")!;
                 items!.prepend(itemElement);
@@ -107,16 +120,16 @@ export function onVisitorGiftOpen(layout: Layout) {
         }
 
         if (onVisitorGiftAddedCallback) {
-            let gift = getCurrentGift();
+            let gift = getCurrentGift(layout.getService());
             onVisitorGiftAddedCallback(gift);
         }
 
         loadCardRestrictions();
 
-        showAddItemToast(person, code!, () => deleteItem(item));
+        showAddItemToast(person?.name, code!, () => deleteItem(item));
     }
     let onAddItem = (count: number = 1, clearInput: boolean | null = null) => {
-        addItem(addItemInput.value, getSelectedPerson() || "", count);
+        addItem(addItemInput.value, getSelectedPerson(), count);
         if (clearInput || (clearInput === null && autoClearInput.checked)) {
             addItemInput.value = "";
             addItemInput.focus();
@@ -146,7 +159,7 @@ export function onVisitorGiftOpen(layout: Layout) {
         let card = addItemCards[i];
         card.addEventListener("click", () => {
             let cardValue = card.getAttribute("data-code") as string;
-            addItem(cardValue, getSelectedPerson() || "", 1);
+            addItem(cardValue, getSelectedPerson(), 1);
         });
     }
 
@@ -180,22 +193,22 @@ export function onVisitorGiftOpen(layout: Layout) {
         }
         saving = true;
         try {
-            let gift = getCurrentGift();
-            gift.items = gift.items.map(x => JSON.stringify(x));
-            let id = await saveGift(gift as any);
+            let gift = getCurrentGift(layout.getService());
+            let id = await saveGift(gift as any, layout.getService<$RequestManager & $ApplicationSettings>());
             giftNumber.value = id;
         } finally {
             saving = false;
         }
     }
 
-    let getCurrentGift = () => {
+    let getCurrentGift = (services: $CardId & $CurrentEmployeeId) => {
         let itemsElements = document.querySelectorAll(".gift-item");
         let items = [].map.call(itemsElements, (element: HTMLElement) => {
             let id = element.querySelector(".gift-item__id")!.textContent as any;
             let person = element.querySelector(".gift-item__person")!.textContent;
+            let personId = element.querySelector(".gift-item__person")!.getAttribute("data-id");
             let name = element.querySelector(".gift-item__name")!.textContent;
-            return { id: id || name, person } as GiftItem;
+            return { id: id || name, person, personId } as GiftItem;
         });
 
         let phone = phoneTextBox.value ?? "";
@@ -204,6 +217,8 @@ export function onVisitorGiftOpen(layout: Layout) {
         }
 
         return {
+            visitorId: services.cardId,
+            dutyId: services.currentEmployeeId,
             id: giftNumber.value,
             fio: "",
             phone: phone,
@@ -217,12 +232,12 @@ export function onVisitorGiftOpen(layout: Layout) {
 
     let load = async () => {
         items.innerHTML = "";
-        let gift = await getGift(giftNumber.value); 
+        let gift = await getGift(giftNumber.value, layout.getService<$RequestManager>()); 
         if (onLoadGift) {
             await onLoadGift(gift);
         }
 
-        if ((gift.phone != phoneTextBox.value && gift.phone != getVisitorBirthDateCode(birthDatePicker)) || gift.passport != gift.passport) {
+        if (gift.visitorId != layout.getService($CardId)) {
             layout.getService($MessageBox).showWarning("Это посещение другого посетителя!");
             return;
         }
@@ -231,9 +246,9 @@ export function onVisitorGiftOpen(layout: Layout) {
         dateInput.value = getDateTimeInputValue(gift.date);
         for (let item of gift.items) {
             if (typeof(item) == "object") {
-                addItem(item.id, item.person);
+                addItem(item.id, { name: item.person, id: item.personId });
             } else {
-                addItem(item.toString(), "");
+                addItem(item.toString(), null);
             }
         }
     };
@@ -259,7 +274,8 @@ export function loadCardRestrictions() {
 
     let selectedPerson = getSelectedPerson();
     if (currentSeason) {
-        let currentPersonSeasonItems = currentSeason.items.filter(x => (x as GiftItem).person === selectedPerson);
+        let currentPersonSeasonItems = currentSeason.items.filter(x => (x as GiftItem).person === selectedPerson.name &&
+            ((x as GiftItem).personId == null || (x as GiftItem).personId == selectedPerson.id ));
         for (let i = 0; i < addItemCards.length; i++) {
             let card = addItemCards[i];
             let cardValue = card.getAttribute("data-code")!;
@@ -277,12 +293,24 @@ export function loadCardRestrictions() {
 export function loadPersons(layout: Layout) {
     let personList = document.getElementById("personList")! as HTMLElement;
     personList.innerHTML = "";
-    
+
     const firstNameTextBox = layout.controls.get<TextBox>("firstName");
-    addPerson(firstNameTextBox.value);
+    addPerson(firstNameTextBox.value, EMPTY_GUID);
     const recipientFirstNameControls = layout.controls.get<TextBox[]>("recipientFirstName");
+    const recipientLastNameControls = layout.controls.get<TextBox[]>("recipientLastName");
+    const relationshipControls = layout.controls.get<Dropdown[]>("relationship");
+    
+    const recipientsTable = layout.controls.get<Table>("recipients");
     for (let i = 0; i < recipientFirstNameControls.length; i++) {
-        addPerson(recipientFirstNameControls[i].value);
+        const relationship = relationshipControls[i].params.items.find(x => x.key == relationshipControls[i].value)?.value
+        let name = recipientFirstNameControls[i].value;
+        if (recipientLastNameControls[i].value) {
+            name += " " + recipientLastNameControls[i].value;
+        }
+        if (relationship) {
+            name += " (" + relationship + ")";
+        }
+        addPerson(name, recipientsTable.params.rows[i]);
     }
 }
 

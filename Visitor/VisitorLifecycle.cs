@@ -4,7 +4,7 @@ using DocsVision.WebClientLibrary.ObjectModel.Services.EntityLifeCycle;
 using System;
 using DocsVision.Platform.WebClient.Diagnostics;
 
-namespace TrinityHelp.Lifecycle
+namespace TrinityHelp
 {
     /// <summary>
     /// Declares default card life cycle

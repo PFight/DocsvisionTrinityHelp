@@ -17,7 +17,12 @@ export interface GenerateOptions {
 
 export interface Gift {
     id: string;
+    cardId: string;
     fio: string;
+    visitorId: string;
+    dutyId: string;
+    dutyName: string;
+    comment?: string;
     phone: string;
     passport: string;
     date: Date;
@@ -27,7 +32,9 @@ export interface Gift {
 
 export interface GiftItem {
     person: string;
+    personId: string;
     id: string;
+    comment?: string;
 }
 
 export const START_PARAM = "start";

@@ -1,14 +1,15 @@
 import { Layout } from "@docsvision/webclient/System/Layout";
-import { fillItemsFromGenerations, getItem, getVisitorGifts, saveGift } from "./firebase";
+import { getVisitorGifts } from "./firebase";
 import { Gift, GiftItem } from "./interfaces";
-import { chlidrenItems, isChildItem, itemNames, itemRestrictions } from "./items";
-import { ageLocalization, categoryLocalization, genderLocalization } from "./localization";
+import { isChildItem, itemNames, itemRestrictions } from "./items";
 import { cleanGift, loadGift, loadPersons, onVisitorGiftOpen, processCurrentSeasonVisits, setOnOnLoadGiftCallback, setOnVisitorGiftAddedCallback } from "./visitor-gift";
 import Toastify from "toastify-js";
 import { TextBox } from "@docsvision/webclient/Platform/TextBox";
 import { $MessageBox } from "@docsvision/webclient/System/$MessageBox";
 import { DateTimePicker } from "@docsvision/webclient/Platform/DateTimePicker";
 import { getVisitorBirthDateCode } from "../../Visitor/GetVisitorBirthDateCode";
+import { $CardId } from "@docsvision/webclient/System/LayoutServices";
+import { $RequestManager } from "@docsvision/webclient/System/$RequestManager";
 
 const Seasons = [[11, 0, 1], [2, 3, 4], [5, 6, 7], [8, 9, 10]];
 const MOTH_VISITS_LIMIT = 8;
@@ -46,7 +47,7 @@ export function onVisitorOpen(layout: Layout) {
             phoneCode = getVisitorBirthDateCode(birthDatePicker);
         }
 
-        let visits = await getVisitorGifts(phoneCode, passportCode);
+        let visits = await getVisitorGifts(layout.getService($CardId), layout.getService<$RequestManager>());
         
         identityElement.innerText = phoneCode + " " + passportCode;
         if (visits.length == 0) {
@@ -120,11 +121,8 @@ export function onVisitorOpen(layout: Layout) {
 
     setOnOnLoadGiftCallback(async (gift) => {
         let changed = false;
-        if (gift.passport) {
-            changed = passportTextBox.value != gift.passport; 
-        }
-        if (gift.phone) {
-            changed = changed || phoneTextBox.value != gift.phone; 
+        if (gift.visitorId != layout.getService($CardId)) {
+            changed = true;
         }
         if (changed) {
             layout.getService($MessageBox).showWarning("Это посещение другого посетителя!");
@@ -147,6 +145,10 @@ export function onVisitorOpen(layout: Layout) {
             date: "В этом сезоне" as any,
             fio: visits.find(x => x.fio)?.fio || "",
             id: "",
+            cardId: "",
+            visitorId: undefined,
+            dutyId: undefined,
+            dutyName: undefined,
             offender: false,
             phone: visits.find(x => x.phone)?.phone || "",
             passport: visits.find(x => x.passport)?.passport || "",

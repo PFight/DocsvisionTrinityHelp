@@ -3,6 +3,10 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import Firebase from "firebase/index";
 import { GenerateOptions, Generation, Gift, GiftItem } from "./interfaces";
+import { $RequestManager } from "@docsvision/webclient/System/$RequestManager";
+import { getDateTimeStringifyServerFormatter, parseServerDateTime } from "@docsvision/webclient/System/DateTimeUtils";
+import { $ApplicationSettings } from "@docsvision/webclient/StandardServices";
+import { VisitorVisit } from "../Models/VisitorVisit";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,97 +21,23 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
-export async function getLastGeneration(): Promise<Generation> {
-    let latest = await firebase.firestore().doc("generation/latest").get();
-    return {
-        start: latest.get("start"),
-        end: latest.get("end"),
-        template: latest.get("template"),
-        userId: latest.get("userId"),
-        userName: latest.get("userName")
-    };
-}
-
-export async function getItem(num: number): Promise<any> {
-    let item = await firebase.firestore().doc(`items/${num}`).get();
-    return makeGenerationModel(item);
-}
-
-function makeGenerationModel(doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData | undefined>): any {
-    return {
-        start: doc.get("start"),
-        end: doc.get("end"),
-        template: doc.get("template"),
-        userId: doc.get("userId"),
-        userName: doc.get("userName"),
-        age: doc.get("age"),
-        style: doc.get("style"),
-        category: doc.get("category"),
-        gender: doc.get("gender"),
-        quality: doc.get("quality"),
-        size: doc.get("size")
-    };
-}
-
-export async function fillItemsFromGenerations() {
-    let generation = await firebase.firestore().collection("generation");
-    let generations = await generation.get();
-    for (var gen of generations.docs) {
-        if (gen.id !== "latest") {
-            await createItems(makeGenerationModel(gen));
-        }
-    }
-}
-
-export async function saveLastGeneration(gen: Generation & GenerateOptions) {
-    let latestDoc = firebase.firestore().doc("generation/latest");
-    let latest = await firebase.firestore().doc("generation/latest").get();
-    if (latest.get("end") > gen.end) {
-        throw Error("Выделенные номера уже заняты. Пожалуйста, обновите страницу и попробуйте снова.");
-    }
-    await latestDoc.set(gen);
-
-    let historyRecort = firebase.firestore().collection("generation").doc();
-    await historyRecort.set(gen);
-
-    await createItems(gen);
-}
-
-async function createItems(gen: Generation & GenerateOptions) {
-    for (let i = gen.start; i <= gen.end; i++) {
-        let item = firebase.firestore().collection("items").doc(i.toString());
-        await item.set({
-            age: gen.age,
-            gender: gen.gender,
-            category: gen.category,
-            size: gen.size,
-            style: gen.style,
-            quality: gen.quality,
-            template: gen.template
-        });
-    }
-}
-
-export async function saveGift(gift: Gift) {
-    if (!gift.id) {
-        let latest = firebase.firestore().collection("gifts").doc("latest");
-        let latestGift = await latest.get();
-        gift.id = (latestGift.get("code") + 1).toString();
-        await latestGift.ref.set({
-            code: latestGift.get("code") + 1
-        });
-    }
-
-    let doc = firebase.firestore().collection("gifts").doc(gift.id);
-    await doc.set({
-        fio: gift.fio,
-        phone: gift.phone,
-        passport: gift.passport,
+export async function saveGift(gift: Gift, services: $RequestManager & $ApplicationSettings) {
+   const response = await services.requestManager.post("api/Visit/Create", JSON.stringify({
+        visitNumber: gift.id,
         date: gift.date,
-        items: gift.items,
-        offender: gift.offender
-    });
-    return gift.id;
+        visitorPassport: gift.passport,
+        visitorPhone: gift.phone,
+        visitorId: gift.visitorId,
+        dutyId: gift.dutyId,
+        comment: gift.comment,
+        items: gift.items.map(x => typeof(x) === "object" ? ({
+            code: x.id,
+            recipientName: x.person,
+            recipient: x.personId,
+            comment: x.comment
+        }) : ({ code: x }))
+   }, getDateTimeStringifyServerFormatter(services))) as any;
+   return response.visitNumber;
 }
 
 export async function getGifts(from?: Date | null, to?: Date | null): Promise<Gift[]> {
@@ -123,59 +53,59 @@ export async function getGifts(from?: Date | null, to?: Date | null): Promise<Gi
     for (var gen of gifts.docs) {
         result.push({
             id: gen.id,
+            cardId: undefined,
             fio: "",
             phone: gen.get("phone"),
             passport: gen.get("passport"),
             items: getGiftItems(gen),
             date: gen.get("date")?.toDate(),
-            offender: gen.get("offender")
+            offender: gen.get("offender"),
+            visitorId: undefined,
+            dutyId: undefined,
+            dutyName: undefined
         });
     }
     return result;
 }
 
-export async function getGift(id: string): Promise<Gift> {
-    let gift = await firebase.firestore().collection("gifts").doc(id).get();
-
-    return {
-        id: gift.id,
-        fio: "",
-        phone: gift.get("phone"),
-        passport: gift.get("passport"),
-        items: getGiftItems(gift),
-        date: gift.get("date")?.toDate() as Date,
-        offender: gift.get("offender")
-    };
+export async function getGift(number: string, services: $RequestManager): Promise<Gift> {
+    let visit = await services.requestManager.get("api/Visit/GetVisitByNumber?visitNumber=" + number) as VisitorVisit;
+    return getGiftFromVisit(visit);
 }
 
-export async function getVisitorGifts(phone: string, passport: string): Promise<Gift[]> {
-    let giftsRequest = firebase.firestore().collection("gifts")
-        .where("phone", "==", phone) as firebase.firestore.Query<any>;
-    let giftsRequest2 = firebase.firestore().collection("gifts")
-        .where("passport", "==", passport) as firebase.firestore.Query<any>;
-    let gifts = [] as any[];
-    if (phone) {
-        gifts = [...gifts, ...(await giftsRequest.get()).docs];
-    }
-    if (passport) {
-        gifts = [...gifts, ...(await giftsRequest2.get()).docs];
-    }
+export async function getVisitorGifts(visitorId: string, services: $RequestManager): Promise<Gift[]> {
+    const visits = await services.requestManager.get("api/Visit/GetVisits?visitorId=" + encodeURIComponent(visitorId)) as VisitorVisit[];
+
     var result = [];
-    for (var gift of gifts) {
-        result.push({
-            id: gift.id,
-            fio: '',
-            phone: gift.get("phone") as string,
-            passport: gift.get("passport") as string,
-            items: getGiftItems(gift),
-            date: gift.get("date")?.toDate() as Date,
-            offender: gift.get("offender")
-        });
+    for (var gift of visits) {
+        result.push(getGiftFromVisit(gift));
     }
     return result;
 }
 
-function getGiftItems(gen: firebase.firestore.QueryDocumentSnapshot<any>) {
+function getGiftFromVisit(visit: VisitorVisit): Gift {
+    return {
+        id: visit.visitNumber,
+        cardId: visit.id,
+        phone: undefined,
+        passport: undefined,
+        visitorId: visit.visitorId,
+        items: visit.items.map(item => ({
+            id: item.code,
+            personId: item.recipient,
+            person: item.recipientName,
+            comment: item.comment
+        } as GiftItem)),
+        date: parseServerDateTime(visit.date),
+        offender: undefined,
+        dutyId: visit.dutyId,
+        dutyName: visit.dutyName,
+        fio: undefined,
+        comment: visit.comment
+    } as Gift;
+}
+
+function getGiftItems(gen: any) {
     return (gen.get("items") as string[]).map(x => {
         try { return JSON.parse(x) } catch { return x } 
     }) as (GiftItem | number | string)[];
