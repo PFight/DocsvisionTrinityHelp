@@ -1,0 +1,100 @@
+.gift-table, .gift-table td {
+    border: 1px solid black;
+}
+
+.gift-field-row__label {
+    width: 0;
+    white-space: nowrap;
+    padding-right: 1em;
+}
+.gift-label {
+    font-weight: bold;
+}
+.gift-table td {
+    padding: 0.3em 0.5em;
+}
+.gift-field-row__value {
+    width: 50%;
+}
+
+
+@media print
+{    
+    .gift-fields
+    {
+        display: none !important;
+    }
+}
+
+.gift-fields {
+    display: table;
+    border: 1px dashed black;
+    padding: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    table-layout: fixed;
+}
+
+.gift-items {
+    min-height: 450px;;
+}
+.gift-item__delete {
+    border: none;
+    box-shadow: none;
+    background: none;
+    cursor: pointer;
+}
+
+.gift-field {
+    display: table-row;
+}
+
+.gift-field__label {
+    display: table-cell;
+    padding: 0.3em;
+    white-space: nowrap;
+    width: auto;
+}
+.gift-field__input {
+    width: 600px;
+}
+.gift-field__input-container {
+    display: table-cell;
+}
+
+.gift-add-item__input {
+    width: 300px;
+}
+
+.gift-header {
+    font-size: 110%;
+    text-align: center;
+}
+
+.gift-save {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+    height: 25px;
+}
+
+.name-select__list-item {
+    display: inline-block;
+    padding: 3px;
+    padding-right: 7px;
+}
+.name-select__list-item:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+.name-select__list-item:focus {
+    border: 1px solid blue;
+}
+#nameSelectDialog {
+    width: 80vw;
+    height: 100vh;
+}
+.name-select__input {
+    width: 50vw;
+    margin-bottom: 10px;
+}

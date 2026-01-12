@@ -50,7 +50,7 @@ namespace TrinityHelp
         {
             containerBuilder.RegisterType<VisitorLifecycle>().As<ICardLifeCycleEx>().WithParameter("cardTypeId", Constants.Visitor.ID).SingleInstance();
             containerBuilder.RegisterType<OrderLifecycle>().As<ICardLifeCycleEx>().WithParameter("cardTypeId", Constants.Order.ID).SingleInstance();
-            
+            containerBuilder.RegisterType<VisitLifecycle>().As<ICardLifeCycleEx>().WithParameter("cardTypeId", Constants.Visit.ID).SingleInstance(); 
 
             // Примеры регистрации различных типов ВК 
             // containerBuilder.RegisterType<YourServiceClass>().As<YourServiceInterface>().SingleInstance();

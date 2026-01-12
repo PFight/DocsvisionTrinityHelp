@@ -12,7 +12,7 @@ namespace TrinityHelp
 
             public static readonly Guid MainKindID = new Guid("315315DC-3DDB-48A9-A945-FF33D1112F0A");
             public static readonly Guid MainStateID = new Guid("49324BFA-AB1E-47A8-833E-4EF936BAFA38");
-
+            
 
 
             public static class System
@@ -28,6 +28,73 @@ namespace TrinityHelp
                 public static readonly Guid ID = new Guid("f1324f55-569b-4d48-8b70-abdb4e9966b0");
 
                 public static string Links = "Links";
+                public static string Passport = "Passport";
+                public static string MainPhoneNumber = "MainPhoneNumber";
+                public static string BirthDate = "BirthDate";
+                public static string FirstName = "FirstName";
+            }
+
+            public static class Visits
+            {
+                public static readonly Guid ID = new Guid("abe1c77a-460f-4bb6-a529-7b86b2000d9b");
+
+                public static string Visit = "Visit";
+            }
+
+            public static class Recipients
+            {
+                public static readonly Guid ID = new Guid("0899d0d9-9eae-4966-89ef-9177bcc5e1a4");
+
+                public static string FirstName = "FirstName";
+                public static string LastName = "LastName";
+                public static string Relationship = "Relationship";
+            }
+        }
+
+        public static class Visit
+        {
+            public static readonly Guid ID = new Guid("dc3a52f8-5aa1-4b13-ade0-e4dcddaaada0");
+
+            public static readonly Guid MainKindID = new Guid("9FB74B2F-1408-4F48-8A2F-D04857F50744");
+            public static readonly Guid MainStateID = new Guid("9C30344C-BEC9-4624-9747-753BDD6D5009");
+            public static readonly Guid NumerationRuleID = new Guid("{A9668B56-6E2D-486D-91E7-14CD8D2928EF}");
+
+
+            public static class System
+            {
+                public static readonly Guid ID = new Guid("b263c576-73b1-4472-b9eb-3dbac5de7d08");
+
+                public static string Kind = "Kind";
+                public static string State = "State";
+            }
+
+            public static class MainInfo
+            {
+                public static readonly Guid ID = new Guid("48d3631f-b22c-4af2-bad5-030838eb2ca0");
+
+                public static string Visitor = "Visitor";
+                public static string DateTime = "DateTime";
+                public static string Duty = "Duty";
+                public static string Comment = "Comment";
+                public static string Number = "Number";
+            }
+
+            public static class Items
+            {
+                public static readonly Guid ID = new Guid("23d9f4db-9236-4bc8-a695-e2b888a91701");
+                
+                public static string ItemCode = "ItemCode";
+                public static string ItemName = "ItemName";
+                public static string Count = "Count";
+                public static string Recipient = "Recipient";
+                public static string Comment = "Comment";
+                public static string Source = "Source";
+            }
+
+            public static class Numbers
+            {
+                public static readonly Guid ID = new Guid("d0aa7747-d108-4f8d-8072-0cd92688229f");
+                public static string Number = "Number";
             }
         }
 

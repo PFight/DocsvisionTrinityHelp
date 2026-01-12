@@ -196,7 +196,14 @@
     <Compile Include="ServerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Order\OrderLifecycle.cs" />
+    <Compile Include="Visit\Models\CreateVisitRequest.cs" />
+    <Compile Include="Visit\Models\CreateVisitResponse.cs" />
+    <Compile Include="Visit\Models\ItemSource.cs" />
+    <Compile Include="Visit\Models\VisitorVisit.cs" />
+    <Compile Include="Visit\Models\VisitItem.cs" />
+    <Compile Include="Visit\VisitController.cs" />
     <Compile Include="Visitor\VisitorLifecycle.cs" />
+    <Compile Include="Visit\VisitLifecycle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sign.snk" />

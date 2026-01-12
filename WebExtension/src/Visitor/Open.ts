@@ -2,6 +2,7 @@ import { CustomButton } from "@docsvision/webclient/Platform/CustomButton";
 import { DateTimePicker } from "@docsvision/webclient/Platform/DateTimePicker";
 import { TextBox } from "@docsvision/webclient/Platform/TextBox";
 import { $ControlStore } from "@docsvision/webclient/System/LayoutServices";
+import { getVisitorBirthDateCode } from "./GetVisitorBirthDateCode";
 
 const url = "https://pfight.github.io/tag-generator/visitor.html";
 
@@ -25,11 +26,7 @@ export function openVisitor(sender: CustomButton) {
     } else if (phone.hasValue()) {
         window.open(url + "?phone=" + encodeURIComponent(phone.value) + personsParam, "_blank");
     } else if (birthDate.hasValue()) {
-        const dateStr = birthDate.value.toLocaleString('ru-RU',{
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit'
-        }).replace(".", "");
+        const dateStr = getVisitorBirthDateCode(birthDate);
         window.open(url + "?phone=" + encodeURIComponent(dateStr) + personsParam, "_blank");
     }
 }

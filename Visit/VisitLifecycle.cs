@@ -9,9 +9,9 @@ namespace TrinityHelp
     /// <summary>
     /// Declares default card life cycle
     /// </summary>
-    public class VisitorLifecycle : BaseCardLifeCycleEx, IDefaultCardLifeCycleEx
+    public class VisitLifecycle : BaseCardLifeCycleEx, IDefaultCardLifeCycleEx
     {
-        private readonly Guid cardTypeId = Constants.Visitor.ID;
+        private readonly Guid cardTypeId = Constants.Visit.ID;
 
         /// <inheritdoc />
         public override Guid CardTypeId
@@ -22,7 +22,7 @@ namespace TrinityHelp
         /// <summary>
         /// Creates a new instance of <see cref="DefaultCardLifeCycle"/>
         /// </summary>
-        public VisitorLifecycle()
+        public VisitLifecycle()
         {
         }
 
@@ -41,8 +41,8 @@ namespace TrinityHelp
                 var cardId = sessionContext.AdvancedCardManager.CreateCard(this.cardTypeId, options.CardKindId);
                 var card = sessionContext.AdvancedCardManager.GetCardData(cardId);
 
-                var systemRow = card.Sections[Constants.Visitor.System.ID].FirstRow;
-                systemRow[Constants.Visitor.System.State] = Constants.Visitor.MainStateID;
+                var systemRow = card.Sections[Constants.Visit.System.ID].FirstRow;
+                systemRow[Constants.Visit.System.State] = Constants.Visit.MainStateID;
 
                 Trace.TraceError("Dbg TrinityHelp: " + cardId + " " + systemRow[Constants.Visitor.System.State]);
                 return cardId;
