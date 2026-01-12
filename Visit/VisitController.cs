@@ -1,5 +1,6 @@
 ﻿using DocsVision.BackOffice.ObjectModel;
 using DocsVision.BackOffice.ObjectModel.Services;
+using DocsVision.Helpers;
 using DocsVision.Platform.ObjectManager;
 using DocsVision.Platform.ObjectManager.SearchModel;
 using DocsVision.Platform.WebClient;
@@ -9,6 +10,7 @@ using DocsVision.Platform.WebClient.Models.Generic;
 using DocsVision.WebClientLibrary.ObjectModel.Services.EntityLifeCycle;
 using DocsVision.WebClientLibrary.ObjectModel.Services.EntityLifeCycle.Options;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -33,6 +35,8 @@ namespace TrinityHelp.Feature1
         [HttpPost]
         public CommonResponse<CreateVisitResponse> Create(CreateVisitRequest request)
         {
+            Trace.TraceInformation("Creating visit: " + JsonHelper.SerializeToJson(request));
+
             var sessionContext = _currentObjectContextProvider.GetOrCreateCurrentSessionContext();
 
             var referenceListService = sessionContext.ObjectContext.GetService<IReferenceListService>();
@@ -53,10 +57,22 @@ namespace TrinityHelp.Feature1
                 else if (!String.IsNullOrWhiteSpace(request.VisitorPhone))
                 {
                     sectionQuery.ConditionGroup.Conditions.AddNew(Constants.Visitor.MainInfo.MainPhoneNumber, DocsVision.Platform.ObjectManager.Metadata.FieldType.String, ConditionOperation.Equals, request.VisitorPhone);
+                    if (request.VisitorPhone != null && request.VisitorPhone.Length == 7 && request.VisitorPhone[4] == '.')
+                    {
+                        // Parse value like 1408.77, wich is 14.08.1977
+                        var date = new DateTime(1900 + Int32.Parse(request.VisitorPhone.Substring(5, 2)), Int32.Parse(request.VisitorPhone.Substring(2, 2)), Int32.Parse(request.VisitorPhone.Substring(0, 2)));
+                        sectionQuery.ConditionGroup.Conditions.AddNew(Constants.Visitor.MainInfo.BirthDate, DocsVision.Platform.ObjectManager.Metadata.FieldType.Date, ConditionOperation.Equals, date);
+                    }
                 }
 
                 string query = searchQuery.GetXml(null, true);
+
+                Trace.TraceInformation("Searching visitor: " + query);
+
                 CardDataCollection cardCollection = sessionContext.Session.CardManager.FindCards(query);
+
+                Trace.TraceInformation("Found " + cardCollection.Count);
+
                 if (cardCollection.Count > 0)
                 {
                     visitorId = cardCollection[0].Id;
@@ -66,6 +82,8 @@ namespace TrinityHelp.Feature1
             {
                 throw new ArgumentOutOfRangeException(nameof(request.VisitorId));
             }
+
+            Trace.TraceInformation("Visitor id: " + visitorId);
 
             var visitor = sessionContext.AdvancedCardManager.GetCardData(visitorId);
 
@@ -168,6 +186,8 @@ namespace TrinityHelp.Feature1
             }
 
             sessionContext.ObjectContext.AcceptChanges();
+
+            Trace.TraceInformation("Complete visit creation. Visit id: " + visitId + ", Visit number: " + numberText);
 
             return CommonResponse.CreateSuccess(new CreateVisitResponse()
             {

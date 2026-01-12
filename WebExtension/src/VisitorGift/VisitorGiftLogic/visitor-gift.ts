@@ -296,12 +296,12 @@ export function loadPersons(layout: Layout) {
 
     const firstNameTextBox = layout.controls.get<TextBox>("firstName");
     addPerson(firstNameTextBox.value, EMPTY_GUID);
-    const recipientFirstNameControls = layout.controls.get<TextBox[]>("recipientFirstName");
-    const recipientLastNameControls = layout.controls.get<TextBox[]>("recipientLastName");
-    const relationshipControls = layout.controls.get<Dropdown[]>("relationship");
+    const recipientFirstNameControls = layout.controls.tryGet<TextBox[]>("recipientFirstName");
+    const recipientLastNameControls = layout.controls.tryGet<TextBox[]>("recipientLastName");
+    const relationshipControls = layout.controls.tryGet<Dropdown[]>("relationship");
     
     const recipientsTable = layout.controls.get<Table>("recipients");
-    for (let i = 0; i < recipientFirstNameControls.length; i++) {
+    for (let i = 0; i < recipientsTable.params.rows.length; i++) {
         const relationship = relationshipControls[i].params.items.find(x => x.key == relationshipControls[i].value)?.value
         let name = recipientFirstNameControls[i].value;
         if (recipientLastNameControls[i].value) {
@@ -356,4 +356,6 @@ function showAddItemToast(person: string, code: number, deleteItem: () => void) 
     });
     toast.showToast();
 }
+
+
 

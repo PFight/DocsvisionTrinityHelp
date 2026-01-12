@@ -21,6 +21,8 @@ import { $Order } from "./Order/$Order";
 import { OrderService } from "./Order/OrderService";
 import * as VisitorOrder from "./Order/Visitor";
 import { VisitorGift } from "./VisitorGift/VisitorGift";
+import * as Analyze from "./VisitorGift/VisitorGiftLogic/analyze";
+import * as VisitorGiftHandlers from "./VisitorGift/VisitorGiftHandlers";
 
 // Главная входная точка всего расширения
 // Данный файл должен импортировать прямо или косвенно все остальные файлы, 
@@ -32,7 +34,7 @@ extensionManager.registerExtension({
     name: "TrinityHelp web extension",
     version: "1.2",
     globalEventHandlers: [ AddCategory, AddRecipient, AddViolation, CreateAccountingDocumentEventHandler, Open,
-        CreateStaffDocumentEventHandler, OrderItems, OrderState, VisitorOrder ],
+        CreateStaffDocumentEventHandler, OrderItems, OrderState, VisitorOrder, Analyze, VisitorGiftHandlers ],
     layoutServices: [ 
         Service.fromFactory($CreateAccountingDocument, (services: $RequestManager) => new CreateAccountingDocumentService(services)),
         Service.fromFactory($CreateStaffDocument, (services: $RequestManager) => new CreateStaffDocumentService(services)),

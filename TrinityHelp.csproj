@@ -203,6 +203,7 @@
     <Compile Include="Visit\Models\VisitItem.cs" />
     <Compile Include="Visit\VisitController.cs" />
     <Compile Include="Visitor\VisitorLifecycle.cs" />
+    <Compile Include="Visit\VisitLifecycle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sign.snk" />

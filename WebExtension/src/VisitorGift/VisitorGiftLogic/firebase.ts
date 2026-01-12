@@ -40,6 +40,25 @@ export async function saveGift(gift: Gift, services: $RequestManager & $Applicat
    return response.visitNumber;
 }
 
+export async function importGift(gift: Gift, services: $RequestManager & $ApplicationSettings) {
+    const response = await services.requestManager.post("api/Visit/Create", JSON.stringify({
+         visitNumber: gift.id,
+         date: gift.date,
+         visitorPassport: gift.passport,
+         visitorPhone: gift.phone,
+         visitorId: gift.visitorId,
+         dutyId: gift.dutyId,
+         comment: gift.comment,
+         items: gift.items.map(x => typeof(x) === "object" ? ({
+             code: x.id,
+             recipientName: x.person,
+             recipient: x.personId,
+             comment: x.comment
+         }) : ({ code: x }))
+    }, getDateTimeStringifyServerFormatter(services))) as any;
+    return response;
+ }
+
 export async function getGifts(from?: Date | null, to?: Date | null): Promise<Gift[]> {
     let giftsRequest = firebase.firestore().collection("gifts") as firebase.firestore.Query<any>;
     if (from) {
