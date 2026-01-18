@@ -7,7 +7,7 @@ export class VisitorsFolderPluginFactory implements IFolderPluginFactory {
     id: 'VisitorsFolderPluginFactory';
     getDataLoadingPlugins(folderInfo: ICommonFolderInfo, services) {
         if (folderInfo.folderId === "cee80a7a-7c10-45b7-a8d0-7fd9f14c6db5") {
-            app.webFrameSearchPanel.setExpanded(true);
+            app.webFrameSearchPanel.setVisible(false);
         }
         return [new ResetSearchHackResponseResolver(app)]
     }

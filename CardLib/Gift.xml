@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="DC3A52F8-5AA1-4B13-ADE0-E4DCDDAAADA0" Alias="Visit" Version="7" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="" IconFile="" DefaultSecurity="" TypeName="">
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="DC3A52F8-5AA1-4B13-ADE0-E4DCDDAAADA0" Alias="Visit" Version="7" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="clsid:{B71055E6-4732-487E-B5F3-3EE1A5EF97C6}" IconFile="" FetchMode="1" DefaultSecurity="" TypeName="DocsVision.BackOffice.Cards.PartnersDictionary.EditEmployeeControl, DocsVision.BackOffice.Cards, Version=5.5.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519">
   <Name>
     <LocalizedString Language="en">Visit</LocalizedString>
     <LocalizedString Language="ru-RU">Посещение</LocalizedString>
   </Name>
   <Sections>
-    <Section Alias="MainInfo" RowAlias="" Type="struct" ID="48D3631F-B22C-4AF2-BAD5-030838EB2CA0">
+    <Section Alias="MainInfo" RowAlias="" Type="struct" ID="48D3631F-B22C-4AF2-BAD5-030838EB2CA0" SimpleSecurity="true">
       <Name>
         <LocalizedString Language="en">Main info</LocalizedString>
         <LocalizedString Language="ru">Основная информация</LocalizedString>
@@ -47,7 +47,7 @@
       </Field>
       <DisplayFields FormatString="" />
     </Section>
-    <Section Alias="Items" RowAlias="" Type="coll" ID="23D9F4DB-9236-4BC8-A695-E2B888A91701">
+    <Section Alias="Items" RowAlias="" Type="coll" ID="23D9F4DB-9236-4BC8-A695-E2B888A91701" SimpleSecurity="true">
       <Name>
         <LocalizedString Language="en">Items</LocalizedString>
         <LocalizedString Language="ru">Выданные вещи</LocalizedString>
@@ -120,7 +120,7 @@
       </Field>
       <DisplayFields FormatString="" />
     </Section>
-    <Section Alias="Numbers" RowAlias="" Type="coll" ID="D0AA7747-D108-4F8D-8072-0CD92688229F">
+    <Section Alias="Numbers" RowAlias="" Type="coll" ID="D0AA7747-D108-4F8D-8072-0CD92688229F" SimpleSecurity="true">
       <Name>
         <LocalizedString Language="en">Numbers</LocalizedString>
         <LocalizedString Language="ru">Номера</LocalizedString>

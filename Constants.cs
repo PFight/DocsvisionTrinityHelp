@@ -30,8 +30,11 @@ namespace TrinityHelp
                 public static string Links = "Links";
                 public static string Passport = "Passport";
                 public static string MainPhoneNumber = "MainPhoneNumber";
+                public static string ContactPhone = "ContactPhone";                
                 public static string BirthDate = "BirthDate";
                 public static string FirstName = "FirstName";
+                public static string LastName = "LastName"; 
+                public static string SecondaryName = "SecondaryName";
             }
 
             public static class Visits

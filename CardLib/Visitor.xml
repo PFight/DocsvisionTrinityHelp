@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" Alias="Visitor" Version="12" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="clsid:{B71055E6-4732-487E-B5F3-3EE1A5EF97C6}" IconFile="" Copyable="true" FetchMode="1" DefaultSecurity="" TypeName="DocsVision.BackOffice.Cards.PartnersDictionary.EditEmployeeControl, DocsVision.BackOffice.Cards, Version=5.5.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519" UseExtensionInAccessCheck="true">
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" Alias="Visitor" Version="13" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="clsid:{B71055E6-4732-487E-B5F3-3EE1A5EF97C6}" IconFile="" Copyable="true" FetchMode="1" DefaultSecurity="" TypeName="DocsVision.BackOffice.Cards.PartnersDictionary.EditEmployeeControl, DocsVision.BackOffice.Cards, Version=5.5.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519" UseExtensionInAccessCheck="true">
   <Name>
     <LocalizedString Language="en">Visitor</LocalizedString>
     <LocalizedString Language="ru-RU">Посетитель</LocalizedString>
@@ -123,6 +123,71 @@
         <Description />
       </Field>
       <Field Alias="ContactPhone" ID="105D620B-0550-4C03-AA00-65EE9C8E4F44" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Volunteer" ID="FDAF16D6-FF40-45B8-B0CE-7EE8C0703936" Type="bool" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VolunteerAgreementNumber" ID="1028D493-0913-4C68-A2B2-8D0B1E8995BD" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="VolunteerStatus" ID="A159A283-944D-4D5C-AD39-0512CBC8B8CE" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Candidate" Value="0">
+          <Name>
+            <LocalizedString Language="en">Candidate</LocalizedString>
+            <LocalizedString Language="ru">Кандидат</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Normal" Value="1">
+          <Name>
+            <LocalizedString Language="en">Normal</LocalizedString>
+            <LocalizedString Language="ru">Нормальный</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Bad" Value="2">
+          <Name>
+            <LocalizedString Language="en">Bad</LocalizedString>
+            <LocalizedString Language="ru"> Плохой</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Good" Value="3">
+          <Name>
+            <LocalizedString Language="en">Good</LocalizedString>
+            <LocalizedString Language="ru">Хороший</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Blocked" Value="4">
+          <Name>
+            <LocalizedString Language="en">Blocked</LocalizedString>
+            <LocalizedString Language="ru">Запрещен</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="VolunteerGroup" ID="FF10BEC9-8788-4307-9E21-AD1F063BA615" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Students" Value="0">
+          <Name />
+        </Enum>
+        <Enum Alias="Young" Value="1">
+          <Name>
+            <LocalizedString Language="en">Young</LocalizedString>
+            <LocalizedString Language="ru">Молодежь</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Older" Value="2">
+          <Name>
+            <LocalizedString Language="en">Older</LocalizedString>
+            <LocalizedString Language="ru">Старшие</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
+      <Field Alias="VolunteerWorkSchedule" ID="9FC36265-E9EE-4AB6-AB39-35BCF2441CB1" Type="unistring" DefaultValue="" CopyBehavior="Copy">
         <Name />
         <Description />
       </Field>
@@ -712,6 +777,30 @@
         <Description />
       </Field>
       <Field Alias="Comment" ID="5CB70415-12E5-45EB-A382-B83A89DC4954" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Visits" RowAlias="" Type="coll" ID="ABE1C77A-460F-4BB6-A529-7B86B2000D9B" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Visit" ID="4172B8B8-1FEF-46CC-89D9-5EA79F5CCD8E" Type="refcardid" RefType="DC3A52F8-5AA1-4B13-ADE0-E4DCDDAAADA0" DefaultValue="" RefKind="Weak" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="VolunteerComments" RowAlias="" Type="coll" ID="80CA285F-FD9C-45C6-A6D8-55E22792F060">
+      <Name />
+      <Field Alias="Comment" ID="0D7969A6-414C-4220-866F-5AAB2B790BE2" Type="unitext" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Author" ID="92C9D84A-6CF7-4FDA-B6CA-EB3CCB287A9F" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="DateTime" ID="E77C260A-AE88-40F3-B8F7-FDD777AD101B" Type="datetime" DefaultValue="" CopyBehavior="Copy">
         <Name />
         <Description />
       </Field>

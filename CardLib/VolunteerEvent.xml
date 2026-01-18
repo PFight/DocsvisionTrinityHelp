@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CardDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="4696C10B-78A3-4183-95A3-0A13AF422160" Alias="VolunteerEvent" Version="4" LibraryID="055A2CBB-4A50-4034-A95A-9505CE898994" ProgID="clsid:{B71055E6-4732-487E-B5F3-3EE1A5EF97C6}" IconFile="" FetchMode="1" DefaultSecurity="" TypeName="DocsVision.BackOffice.Cards.PartnersDictionary.EditEmployeeControl, DocsVision.BackOffice.Cards, Version=5.5.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519" UseExtensionInAccessCheck="true">
+  <Name>
+    <LocalizedString Language="en">Volunteer event</LocalizedString>
+    <LocalizedString Language="ru-RU">Волонтерское событие</LocalizedString>
+  </Name>
+  <Sections>
+    <Section Alias="System" RowAlias="" Type="struct" ID="1F9659C8-50F2-4019-AEC6-C6AB2E590A8E" SimpleSecurity="true">
+      <Name />
+      <Field Alias="State" ID="61EEBE3C-ADB2-48E9-BFDD-20E0898CDA5D" Type="refid" RefType="443F55F0-C8AB-4DD3-BCBD-5328C7C9D385" RefSection="521B4477-DD10-4F57-A453-09C70ADB7799" DefaultValue="{9DB13A2E-1843-42AF-977D-65709B312D34}" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Kind" ID="354ECD89-71B8-4122-AD58-A120CD67CD38" Type="refid" RefType="8F704E7D-A123-4917-94B4-F3B851F193B2" RefSection="C7BA000C-6203-4D7F-8C6B-5CB6F1E6F851" DefaultValue="{EED8B544-3B0A-499F-85AA-6B0E96BCC03D}" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="MainInfo" RowAlias="" Type="struct" ID="09217663-01B5-45B2-829A-40FEAD7AC06F" SimpleSecurity="true">
+      <Name />
+      <Field Alias="DateTime" ID="B3FF9C8A-BFFF-4639-AF8A-30CDBE7A8656" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Description" ID="3FE17A51-3534-423D-9E9F-57B356AD731C" Type="unitext" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Author" ID="1034C10F-BAFB-4230-898E-D758F403BB4B" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Name" ID="24E0BD4E-52B6-47DB-A7A3-E74FF8C887D2" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="E324A9CA-97A5-4E0A-B16D-E3A894C8DF98" Type="refid" RefType="4696C10B-78A3-4183-95A3-0A13AF422160" RefSection="33D73CED-24DE-4BA9-A365-557B47B270E5" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="ActualDuration" ID="CE47E4E5-51CE-4186-867F-EA9EA36DA132" Type="decimal" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="ActualVolunteerCount" ID="8453053A-FA58-44D4-8DBE-1993052A8E68" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Comments" RowAlias="" Type="coll" ID="BB86FE3C-FA0A-44F5-BF1D-97D1386F164A" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Comment" ID="2897CC1A-2AE5-43FD-88D5-70CF46CBD2AF" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Author" ID="0C3F84E5-F3E0-4424-BE67-017C3AEA4D66" Type="refid" RefType="6710B92A-E148-4363-8A6F-1AA0EB18936C" RefSection="DBC8AE9D-C1D2-4D5E-978B-339D22B32482" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Date" ID="A1BEF541-7706-41EC-B3DF-19E390372A1A" Type="datetime" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Numbers" RowAlias="" Type="coll" ID="33D73CED-24DE-4BA9-A365-557B47B270E5" SimpleSecurity="true">
+      <Name />
+      <Field Alias="NumericPart" ID="18AE2DFA-CFA1-4412-8070-A4A79343DF85" Type="refid" RefType="959FF5E2-7E47-4F6F-9CF6-E1E477CD01CF" RefSection="D47F2C38-6553-4864-BAFF-0BC4D3A85290" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Number" ID="9272A047-A2D9-4AC0-95B4-127D67EE943F" Type="string" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+    <Section Alias="Volunteers" RowAlias="" Type="coll" ID="78C2829A-160D-4336-A1EA-891F894E8590" SimpleSecurity="true">
+      <Name />
+      <Field Alias="Volunteer" ID="6B901C96-135B-4A57-A252-1350F9BE628F" Type="refcardid" RefType="EAAD7975-8A5E-4ECE-9350-75BB62C01AA7" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="HasCome" ID="06C9BFA2-2970-47C3-BAA3-DAF877F1F195" Type="bool" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="Comment" ID="9B5E9FC8-2F0B-44BC-B5DD-495EC88157B3" Type="unistring" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <Field Alias="TookThings" ID="12F52A17-9DFE-455A-AF4F-7FEAB8458883" Type="int" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+      </Field>
+      <DisplayFields FormatString="" />
+    </Section>
+  </Sections>
+</CardDefinition>

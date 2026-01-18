@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CardLibrary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="055A2CBB-4A50-4034-A95A-9505CE898994" Alias="HelpCardLib" ControlInfo="" IconFile="" MsiProductCode="" MsiPackageName="">
   <Definitions>
-    <RefCardDefinition>Visitor.xml</RefCardDefinition>
     <RefCardDefinition>Gift.xml</RefCardDefinition>
     <RefCardDefinition>Order.xml</RefCardDefinition>
+    <RefCardDefinition>Visitor.xml</RefCardDefinition>
+    <RefCardDefinition>VolunteerEvent.xml</RefCardDefinition>
   </Definitions>
   <Name>
     <LocalizedString Language="en">HelpCardLib</LocalizedString>
