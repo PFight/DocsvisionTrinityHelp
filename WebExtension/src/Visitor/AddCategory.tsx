@@ -86,7 +86,12 @@ const categories = [
     {
       "key": "Military",
       "value": "Семья участника СВО",
-      "valueCode": 0
+      "valueCode": 10
+    },
+    {
+      "key": "AdoptedChild",
+      "value": "Семья с приемными детьми",
+      "valueCode": 12
     },
     {
       "key": "Priest",

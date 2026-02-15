@@ -683,6 +683,11 @@
             <LocalizedString Language="ru">Работник храма</LocalizedString>
           </Name>
         </Enum>
+        <Enum Alias="AdoptedChild" Value="12">
+          <Name>
+            <LocalizedString Language="ru">Семья с приемными детьми</LocalizedString>
+          </Name>
+        </Enum>
       </Field>
       <Field Alias="Verified" ID="291C815D-E18D-493A-9A3E-9C11FA1A5F8F" Type="bool" DefaultValue="" CopyBehavior="Copy">
         <Name />

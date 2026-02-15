@@ -189,7 +189,7 @@ namespace TrinityHelp.Feature1
 
             Trace.TraceInformation("Complete visit creation. Visit id: " + visitId + ", Visit number: " + numberText);
 
-            return CommonResponse.CreateSuccess(new CreateVisitResponse()
+            return CommonResponse.CreateSuccess(sessionContext, request.VisitorId, new CreateVisitResponse()
             {
                 VisitId = visitId,
                 VisitNumber = numberText
@@ -213,6 +213,48 @@ namespace TrinityHelp.Feature1
                 var visit = LoadVisit(sessionContext, visitId, visitorData);
                 visits.Add(visit);
             }
+            return CommonResponse.CreateSuccess(visits);
+        }
+
+        [HttpPost]
+        public CommonResponse<List<VisitorVisit>> FindVisitsByDate([FromBody] FindVisitsRequest request)
+        {
+            List<VisitorVisit> visits = new List<VisitorVisit>();
+
+            var sessionContext = _currentObjectContextProvider.GetOrCreateCurrentSessionContext();
+            var numeratorRuleService = sessionContext.ObjectContext.GetService<INumerationRulesService>();
+
+            Trace.TraceInformation("Loading loading visits: " + JsonHelper.SerializeToJson(request));
+
+            SearchQuery searchQuery = sessionContext.Session.CreateSearchQuery();
+            CardTypeQuery typeQuery = searchQuery.AttributiveSearch.CardTypeQueries.AddNew(Constants.Visitor.ID);
+
+            SectionQuery sectionQuery = typeQuery.SectionQueries.AddNew(Constants.Visit.MainInfo.ID);
+
+            sectionQuery.ConditionGroup.Operation = ConditionGroupOperation.And;
+            
+            sectionQuery.ConditionGroup.Conditions.AddNew(Constants.Visit.MainInfo.DateTime, DocsVision.Platform.ObjectManager.Metadata.FieldType.DateTime, ConditionOperation.GreaterEqual, request.From.StartOfDay());
+            sectionQuery.ConditionGroup.Conditions.AddNew(Constants.Visit.MainInfo.DateTime, DocsVision.Platform.ObjectManager.Metadata.FieldType.DateTime, ConditionOperation.LessEqual, request.To.EndOfDay());
+
+            string query = searchQuery.GetXml(null, true);
+
+            Trace.TraceInformation("Searching visits: " + query);
+
+            CardDataCollection cardCollection = sessionContext.Session.CardManager.FindCards(query);
+            foreach (var visitCard in cardCollection)
+            {
+                var visitId = visitCard.Id;
+                try
+                {
+                    var visit = LoadVisit(sessionContext, visitId);
+                    visits.Add(visit);
+                }
+                catch (Exception ex)
+                {
+                    Trace.TraceError(ex);
+                }
+            }
+
             return CommonResponse.CreateSuccess(visits);
         }
 
@@ -302,21 +344,32 @@ namespace TrinityHelp.Feature1
                 item.Code = itemData.GetString(Constants.Visit.Items.ItemCode);
                 item.Name = itemData.GetString(Constants.Visit.Items.ItemName);
                 item.Recipient = itemData.GetGuid(Constants.Visit.Items.Recipient) ?? Guid.Empty;
-                if (item.Recipient != Guid.Empty)
+                if (item.Recipient != Guid.Empty && visitorData.Sections[Constants.Visitor.Recipients.ID].RowExists(item.Recipient))
                 {
                     Trace.TraceInformation("Loading recipient: " + item.Recipient);
-                    var recepientRow = visitorData.Sections[Constants.Visitor.Recipients.ID].GetRow(item.Recipient);
-                    item.RecipientName = recepientRow.GetString(Constants.Visitor.Recipients.FirstName);
-                    var family = recepientRow.GetString(Constants.Visitor.Recipients.LastName);
-                    if (!String.IsNullOrEmpty(family))
+                    RowData recepientRow = null;
+                    try
                     {
-                        item.RecipientName += " " + family;
+                        recepientRow = visitorData.Sections[Constants.Visitor.Recipients.ID].GetRow(item.Recipient);
                     }
-                    var relation = recepientRow.GetInt32(Constants.Visitor.Recipients.Relationship);
-                    if (relation != null)
+                    catch (Exception ex)
                     {
-                        var relationName = recepientRow.Section.Fields[Constants.Visitor.Recipients.Relationship].Type.EnumValues.First(x => x.Value == relation).Name;
-                        item.RecipientName += " (" + relationName + ")";
+                        Trace.TraceError(ex);
+                    }
+                    if (recepientRow != null)
+                    {
+                        item.RecipientName = recepientRow.GetString(Constants.Visitor.Recipients.FirstName);
+                        var family = recepientRow.GetString(Constants.Visitor.Recipients.LastName);
+                        if (!String.IsNullOrEmpty(family))
+                        {
+                            item.RecipientName += " " + family;
+                        }
+                        var relation = recepientRow.GetInt32(Constants.Visitor.Recipients.Relationship);
+                        if (relation != null)
+                        {
+                            var relationName = recepientRow.Section.Fields[Constants.Visitor.Recipients.Relationship].Type.EnumValues.First(x => x.Value == relation).Name;
+                            item.RecipientName += " (" + relationName + ")";
+                        }
                     }
                 }
                 else if (item.Recipient == Guid.Empty && itemData.GetGuid(Constants.Visit.Items.Recipient) != null)

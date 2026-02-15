@@ -196,8 +196,10 @@
     <Compile Include="ServerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Order\OrderLifecycle.cs" />
+    <Compile Include="Utils\DateTimeOffsetExtensions.cs" />
     <Compile Include="Visitor\Models\FoundVisitor.cs" />
     <Compile Include="Visitor\Models\FindVisitorsRequest.cs" />
+    <Compile Include="Visit\Models\FindVisitsRequest.cs" />
     <Compile Include="Visit\Models\CreateVisitRequest.cs" />
     <Compile Include="Visit\Models\CreateVisitResponse.cs" />
     <Compile Include="Visit\Models\ItemSource.cs" />

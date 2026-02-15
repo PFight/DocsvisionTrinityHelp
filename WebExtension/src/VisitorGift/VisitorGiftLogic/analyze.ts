@@ -3,10 +3,14 @@ import { getGifts, importGift, saveGift } from "./firebase";
 import { Gift, GiftItem } from "./interfaces";
 import { itemNames } from "./items";
 import { MessageBox } from "@docsvision/webclient/Helpers/MessageBox/MessageBox";
+import { $RequestManager } from "@docsvision/webclient/System/$RequestManager";
+import { $ApplicationSettings } from "@docsvision/webclient/StandardServices";
+import { Layout } from "@docsvision/webclient/System/Layout";
 
 
 const NOT_SPECIFIED = "Не указано";
-export async function initAnalytics() {
+export async function initAnalytics(sender: Layout) {
+    const services = sender.getService<$RequestManager & $ApplicationSettings>();
     let generateByVisitors = document.getElementById("generateByVisitors");
     let generateByVisits = document.getElementById("generateByVisits");
     let generateByItems = document.getElementById("generateByNames");
@@ -18,7 +22,7 @@ export async function initAnalytics() {
     let to = document.getElementById("to") as HTMLInputElement;
 
     generateByVisits?.addEventListener("click", async () => {
-        let data = await getGifts(from.valueAsDate, to.valueAsDate);
+        let data = await getGifts(from.valueAsDate, to.valueAsDate, services);
         let csv = "Дата, Количество вещей, Номер телефона, Номер паспорта, Фио, Номер анкеты, Нарушение, Колличество имен";
         for (let code in itemNames) {
             csv += ', ' + itemNames[code];
@@ -59,15 +63,15 @@ export async function initAnalytics() {
     });
 
     generateByVisitors?.addEventListener("click", async () => {
-        let data = await getGifts(from.valueAsDate, to.valueAsDate);
-        let csv = "Номер телефона/паспорта/фио, Количество посещений, Даты, Количество вещей, Номера анкет, Нарушение, Колличество имен, Имена";
+        let data = await getGifts(from.valueAsDate, to.valueAsDate, services);
+        let csv = "ID посетителя, Количество посещений, Даты, Количество вещей, Номера анкет, Нарушение, Колличество имен, Имена";
         for (let code in itemNames) {
             csv += ', ' + itemNames[code];
         }
         csv += "\r\n";
         let visitorsMap = {} as { [key: string]: Gift[] };
         for (let gift of data) {
-            let identity = (gift.phone || gift.passport || gift.fio || "Не указано");
+            let identity = (gift.visitorId);
             visitorsMap[identity] = visitorsMap[identity] || [];
             visitorsMap[identity].push(gift);
         }
@@ -113,7 +117,7 @@ export async function initAnalytics() {
     });
 
     generateByItems?.addEventListener("click", async () => {
-        let data = await getGifts(from.valueAsDate, to.valueAsDate);
+        let data = await getGifts(from.valueAsDate, to.valueAsDate, services);
         let csv = "Номер анкеты, Дата, Номер телефона, Номер паспорта, Фио, Имя, Нарушение, Вещь, Название";
         csv += "\r\n";
         for (let gift of data) {
@@ -148,7 +152,7 @@ export async function initAnalytics() {
 
     importFromOldBase?.addEventListener("click", async () => {
         var result = document.querySelector<HTMLElement>("#result");
-        let data = await getGifts(from.valueAsDate, to.valueAsDate);
+        let data = await getGifts(from.valueAsDate, to.valueAsDate, services);
         let csv = "Номер анкеты, Дата, Номер телефона, Номер паспорта, Успешно, VisitId, Результат";
         csv += "\r\n";
         let errCount = 0;
@@ -187,7 +191,7 @@ export async function initAnalytics() {
     });
 
     const reportByDays = async (noSpecial: boolean) => {
-        let data = await getGifts(from.valueAsDate, to.valueAsDate);
+        let data = await getGifts(from.valueAsDate, to.valueAsDate, services);
         let daysData: { [key: string]: any[] } = {};
         for (let gift of data) {
             if (gift.offender && noSpecial) {
@@ -213,7 +217,7 @@ export async function initAnalytics() {
     
     
     generateByCategories?.addEventListener("click", async () => {
-        let data = await getGifts(from.valueAsDate, to.valueAsDate);
+        let data = await getGifts(from.valueAsDate, to.valueAsDate, services);
         let categoriesData: { [key: string]: { count: number, visitors: number } } = {};
         for (let gift of data) {
             if (gift.items) {

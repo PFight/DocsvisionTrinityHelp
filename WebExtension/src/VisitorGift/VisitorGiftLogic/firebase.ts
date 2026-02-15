@@ -59,32 +59,10 @@ export async function importGift(gift: Gift, services: $RequestManager & $Applic
     return response;
  }
 
-export async function getGifts(from?: Date | null, to?: Date | null): Promise<Gift[]> {
-    let giftsRequest = firebase.firestore().collection("gifts") as firebase.firestore.Query<any>;
-    if (from) {
-       giftsRequest = giftsRequest.where("date", ">=", from);
-    }
-    if (to) {
-        giftsRequest = giftsRequest.where("date", "<=", to);
-    }
-    let gifts = await giftsRequest.get();
-    var result = [] as Gift[];
-    for (var gen of gifts.docs) {
-        result.push({
-            id: gen.id,
-            cardId: undefined,
-            fio: "",
-            phone: gen.get("phone"),
-            passport: gen.get("passport"),
-            items: getGiftItems(gen),
-            date: gen.get("date")?.toDate(),
-            offender: gen.get("offender"),
-            visitorId: undefined,
-            dutyId: undefined,
-            dutyName: undefined
-        });
-    }
-    return result;
+export async function getGifts(from: Date, to: Date, services: $RequestManager & $ApplicationSettings): Promise<Gift[]> {
+    let visits = await services.requestManager.post("api/Visit/FindVisitsByDate", 
+        JSON.stringify({ from, to }, getDateTimeStringifyServerFormatter(services))) as VisitorVisit[];
+    return visits.map(getGiftFromVisit);
 }
 
 export async function getGift(number: string, services: $RequestManager): Promise<Gift> {
@@ -115,7 +93,7 @@ function getGiftFromVisit(visit: VisitorVisit): Gift {
             person: item.recipientName,
             comment: item.comment
         } as GiftItem)),
-        date: parseServerDateTime(visit.date),
+        date: new Date(visit.date),
         offender: undefined,
         dutyId: visit.dutyId,
         dutyName: visit.dutyName,
