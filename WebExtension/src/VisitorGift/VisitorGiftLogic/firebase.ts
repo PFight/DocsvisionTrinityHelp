@@ -40,6 +40,11 @@ export async function saveGift(gift: Gift, services: $RequestManager & $Applicat
    return response.visitNumber;
 }
 
+export async function mergeVisitorDublicates(visitorId: string, dublicateVisitorId: string, services: $RequestManager & $ApplicationSettings) {
+   const response = await services.requestManager.post("api/Visit/MergeDublicates?visitorId=" + visitorId + "&dublicateVisitorId=" + dublicateVisitorId, {}) as any;
+   return response;
+}
+
 export async function importGift(gift: Gift, services: $RequestManager & $ApplicationSettings) {
     const response = await services.requestManager.post("api/Visit/Create", JSON.stringify({
          visitNumber: gift.id,

@@ -85,10 +85,92 @@ namespace TrinityHelp.Feature1
 
             Trace.TraceInformation("Visitor id: " + visitorId);
 
+            CreateVisit(request, sessionContext, visitorId, out var visitId, out var numberText);
+
+            return CommonResponse.CreateSuccess(sessionContext, request.VisitorId, new CreateVisitResponse()
+            {
+                VisitId = visitId,
+                VisitNumber = numberText
+            });
+        }
+
+        [HttpPost]
+        public CommonResponse MergeDublicates([FromUri] Guid visitorId, [FromUri] Guid dublicateVisitorId)
+        {
+            if (visitorId == dublicateVisitorId)
+                throw new Exception("Выберите другого посетителя (вы выбрали ту же карточку)");
+            if (visitorId == Guid.Empty || dublicateVisitorId == Guid.Empty)
+                throw new ArgumentNullException("Переданы некорректные параметры (" + visitorId.ToString() + ", " + dublicateVisitorId.ToString());
+
+            Trace.TraceInformation("Merging visits from dublicate: " + dublicateVisitorId + " to " + visitorId);
+
+            List<VisitorVisit> visits = new List<VisitorVisit>();
+
+            var sessionContext = _currentObjectContextProvider.GetOrCreateCurrentSessionContext();
+            var numeratorRuleService = sessionContext.ObjectContext.GetService<INumerationRulesService>();
+
+            Trace.TraceInformation("Loading loading visits for visitor dublicate: " + dublicateVisitorId);
+            var dublicateVisitorData = sessionContext.AdvancedCardManager.GetCardData(dublicateVisitorId);
+            var dublicateVisitsSection = dublicateVisitorData.Sections[Constants.Visitor.Visits.ID].GetAllRows();
+            foreach (var visitRow in dublicateVisitsSection)
+            {
+                var visitId = (Guid)visitRow[Constants.Visitor.Visits.Visit];
+                var visit = LoadVisit(sessionContext, visitId, dublicateVisitorData);
+                visits.Add(visit);
+            }
+
+            Trace.TraceInformation("Loading loading original visits for visitor : " + visitorId);
+            List<VisitorVisit> originalVisits = new List<VisitorVisit>();
+            var visitorData = sessionContext.AdvancedCardManager.GetCardData(dublicateVisitorId);
+            var visitsSection = visitorData.Sections[Constants.Visitor.Visits.ID].GetAllRows();
+            foreach (var visitRow in visitsSection)
+            {
+                var visitId = (Guid)visitRow[Constants.Visitor.Visits.Visit];
+                var visit = LoadVisit(sessionContext, visitId, visitorData);
+                originalVisits.Add(visit);
+            }
+
+            Trace.TraceInformation("Copying from dublicate to visitor");
+
+            foreach (var visit in visits)
+            {
+                if (!originalVisits.Any(x => x.Comment?.Contains(visit.Id.ToString()) ?? false))
+                {
+                    Trace.TraceInformation("Copying visit " + visit.Id + " " + visit.Date.ToString());
+
+                    CreateVisit(new CreateVisitRequest()
+                    {
+                        VisitorId = visitorId,
+                        Comment = visit.Comment + "[merged from " + dublicateVisitorId + ", old visit id: " + visit.Id.ToString() + "]",
+                        DutyId = visit.DutyId.ToString(),
+                        Date = visit.Date,
+                        Items = visit.Items.Select(item => new CreateVisitItem()
+                        {
+                            Code = item.Code,
+                            Comment = item.Comment,
+                            Recipient = item.Recipient,
+                            RecipientName = item.RecipientName
+                        }).ToList()
+                    }, sessionContext, visitorId, out var visitId, out var numberText);
+
+                    Trace.TraceInformation("Visit " + visit.Id + " copied. New visit id " + visitId + ", number: " + numberText);
+                }
+                else
+                {
+                    Trace.TraceInformation("Visit " + visit.Id + " already copied earlier.");
+                }
+            }
+
+            sessionContext.AdvancedCardManager.DeleteCard(dublicateVisitorId);
+
+            return CommonResponse.CreateSuccess();
+        }
+
+        private void CreateVisit(CreateVisitRequest request, SessionContext sessionContext, Guid visitorId, out Guid visitId, out string numberText)
+        {
             var visitor = sessionContext.AdvancedCardManager.GetCardData(visitorId);
 
-            Guid visitId = Guid.Empty;
-
+            visitId = Guid.Empty;
             if (!String.IsNullOrEmpty(request.VisitNumber))
             {
                 visitId = FindVisitByNumber(request.VisitNumber, sessionContext);
@@ -122,8 +204,8 @@ namespace TrinityHelp.Feature1
             // Set or generate number
             var numeratorRuleService = sessionContext.ObjectContext.GetService<INumerationRulesService>();
             var visitBaseCard = sessionContext.ObjectContext.GetObject<BaseCard>(visitId);
-            string numberText = request.VisitNumber;
-            if (visitMainInfo.GetString(Constants.Visit.MainInfo.Number) != request.VisitNumber)
+            numberText = request.VisitNumber;
+            if (visitMainInfo.GetString(Constants.Visit.MainInfo.Number) != request.VisitNumber || request.VisitNumber == null || request.VisitNumber == String.Empty)
             {
                 BaseCardNumber number;
                 if (!String.IsNullOrEmpty(request.VisitNumber))
@@ -188,12 +270,6 @@ namespace TrinityHelp.Feature1
             sessionContext.ObjectContext.AcceptChanges();
 
             Trace.TraceInformation("Complete visit creation. Visit id: " + visitId + ", Visit number: " + numberText);
-
-            return CommonResponse.CreateSuccess(sessionContext, request.VisitorId, new CreateVisitResponse()
-            {
-                VisitId = visitId,
-                VisitNumber = numberText
-            });
         }
 
         [HttpGet]
@@ -331,7 +407,7 @@ namespace TrinityHelp.Feature1
 
             Trace.TraceInformation("Loading visit number.");
             var visitBaseCard = sessionContext.ObjectContext.GetObject<BaseCard>(visitId);
-            visit.VisitNumber = numeratorRuleService.GetNumber(visitBaseCard, visitMainInfo.GetGuid(Constants.Visit.MainInfo.Number) ?? Guid.Empty).Number;
+            visit.VisitNumber = numeratorRuleService.GetNumber(visitBaseCard, visitMainInfo.GetGuid(Constants.Visit.MainInfo.Number) ?? Guid.Empty)?.Number;
 
             visit.Items = new List<VisitItem>();
             var visitItemsData = visitData.Sections[Constants.Visit.Items.ID].GetAllRows();
