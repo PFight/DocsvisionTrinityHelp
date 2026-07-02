@@ -12,6 +12,7 @@ import { CustomButton } from "@docsvision/webclient/Platform/CustomButton";
 import { FoundVisitor } from "./$Visitor/Models/FoundVisitor";
 import { mergeVisitorDublicates } from "../VisitorGift/VisitorGiftLogic/firebase";
 import { $Layout } from "@docsvision/webclient/System/$Layout";
+import { FindVisitorsRequest } from "./$Visitor/Models/FindVisitorsRequest";
 
 export async function onCardSaving(sender: LayoutControl, args: ICancelableEventArgs<any>) {
     args.wait();
@@ -43,7 +44,7 @@ export async function onCardSaving(sender: LayoutControl, args: ICancelableEvent
     }
 }
 
-function renderDublicateVisitor(visitor: FoundVisitor) {
+function renderDublicateVisitor(visitor: FoundVisitor, renderOpenButton: boolean = true) {
     return (
         <span>
             <span>{visitor.lastName + " " + visitor.firstName + " " + (visitor.secondaryName ?? "")}</span>
@@ -53,15 +54,26 @@ function renderDublicateVisitor(visitor: FoundVisitor) {
             <span>телефон: {visitor.phone ?? "не указан"}</span>,
             <>&nbsp;</>
             {visitor.birthDate && <span>дата рождения: {visitor.birthDate}</span>},
-            <a href={`#/CardView/${visitor.cardId}`} target="_blank">
-                Открыть
-            </a>
+            {renderOpenButton && (
+                <a href={`#/CardView/${visitor.cardId}`} target="_blank">
+                    Открыть
+                </a>
+            )}
         </span>
     );
 }
 
 async function loadDublicates(sender: LayoutControl) {
     const visitorService = sender.layout.getService($Visitor);
+    const request: FindVisitorsRequest = getVisitorInfo(sender);
+    let visitors = await visitorService.find(request);
+
+    visitors = visitors.filter(x => x.cardId !== sender.getService($CardId));
+
+    return visitors;
+}
+
+function getVisitorInfo(sender: LayoutControl) {
     const controls = sender.layout.getService($ControlStore);
     const phone = controls.get<TextBox>("phone").value;
     const contanctPhone = controls.get<TextBox>("contanctPhone").value;
@@ -71,14 +83,11 @@ async function loadDublicates(sender: LayoutControl) {
     const lastName = controls.get<TextBox>("lastName").value;
     const secondaryName = controls.get<TextBox>("secondaryName").value;
 
-    let visitors = await visitorService.find({
+    const request: FindVisitorsRequest = {
         passport, phone, contactPhone: contanctPhone, birthDate: toServerDateString(birthDate, sender.layout.getService()),
         firstName, lastName, secondaryName
-    });
-
-    visitors = visitors.filter(x => x.cardId !== sender.getService($CardId));
-
-    return visitors;
+    };
+    return request;
 }
 
 export async function mergeDublicates(sender: CustomButton) {
@@ -91,15 +100,30 @@ export async function mergeDublicates(sender: CustomButton) {
             dublicateVisitorId = (event.target as HTMLInputElement).value;
         }
 
-        await messageWindow.showInfo((
+        const birthDate = sender.getService($ControlStore).get<DateTimePicker>("birthDate").value;
+        const visitorInfo = getVisitorInfo(sender);
+
+        await messageWindow.showConfirmation((
             <React.Fragment>
+                <b className="select-dublicate-header">Текущий посетитель:</b>
+                <div className="select-dublicate-block">
+                    {renderDublicateVisitor({
+                        cardId: sender.getService($CardId),
+                        firstName: visitorInfo.firstName,
+                        lastName: visitorInfo.lastName,
+                        passport: visitorInfo.passport,
+                        phone: (visitorInfo.phone ?? "") + " " + (visitorInfo.contactPhone ?? ""),
+                        birthDate: birthDate.toLocaleDateString(),
+                        secondaryName: visitorInfo.secondaryName
+                    }, false)}
+                </div>
                 <b className="select-dublicate-header">Выберите дубликат:</b>
                 <ul onChange={onSelected}>
                     {visitors.map(visitor => (
                         <li>
                             <label className="select-dublicate-label">
                                 <input type="radio" name="dublicate" value={visitor.cardId} ></input>
-                                {renderDublicateVisitor(visitor)}
+                                {renderDublicateVisitor(visitor, true)}
                             </label>
                         </li>    
                     ))}

@@ -161,7 +161,8 @@ namespace TrinityHelp.Feature1
                 }
             }
 
-            sessionContext.AdvancedCardManager.DeleteCard(dublicateVisitorId);
+            var appPoolSessionContext = this._currentObjectContextProvider.GetOrCreateApplicationPoolSessionContext();
+            appPoolSessionContext.AdvancedCardManager.DeleteCard(dublicateVisitorId);
 
             return CommonResponse.CreateSuccess();
         }
