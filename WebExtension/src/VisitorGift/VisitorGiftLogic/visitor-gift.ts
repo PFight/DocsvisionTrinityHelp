@@ -1,7 +1,7 @@
 import { Layout } from "@docsvision/webclient/System/Layout";
 import { getGift, saveGift } from "./firebase";
 import { Gift, GiftItem } from "./interfaces";
-import { itemNames, itemRestrictions } from "./items";
+import { itemGenders, itemGenerations, itemNames, itemRestrictions } from "./items";
 import { addPerson, initPersonSelect } from "./person-select";
 import Toastify from "toastify-js";
 import { TextBox } from "@docsvision/webclient/Platform/TextBox";
@@ -14,6 +14,7 @@ import { $CardId } from "@docsvision/webclient/System/LayoutServices";
 import { EMPTY_GUID } from "@docsvision/webclient/System/GuidUtils";
 import { Table } from "@docsvision/webclient/Platform/Table";
 import { Dropdown } from "@docsvision/webclient/Platform/Dropdown";
+import { RadioGroup } from "@docsvision/webclient/Platform/RadioGroup";
 
 export let onVisitorGiftAddedCallback: (gift: Gift) => void;
 
@@ -44,7 +45,12 @@ let getSelectedPerson = () => {
 
     let person = personList.querySelector(".gift-add-item__person-list-item.selected");
     if (person) {
-        return { name: person.getAttribute("data-name"), id: person.getAttribute("data-id") };
+        return { 
+            name: person.getAttribute("data-name"), 
+            id: person.getAttribute("data-id"), 
+            generation: person.getAttribute("data-generation"),
+            gender: person.getAttribute("data-gender"),
+        };
     } else {
         return null;
     }
@@ -273,18 +279,30 @@ export function loadCardRestrictions() {
     let addItemCards = document.querySelectorAll<HTMLElement>(".gift-add-item__card");
 
     let selectedPerson = getSelectedPerson();
-    if (currentSeason) {
-        let currentPersonSeasonItems = currentSeason.items.filter(x => (x as GiftItem).person === selectedPerson.name &&
+    if (selectedPerson) {
+        let currentPersonSeasonItems = currentSeason?.items.filter(x => (x as GiftItem).person === selectedPerson.name &&
             ((x as GiftItem).personId == null || (x as GiftItem).personId == selectedPerson.id ));
         for (let i = 0; i < addItemCards.length; i++) {
             let card = addItemCards[i];
             let cardValue = card.getAttribute("data-code")!;
-            let currentSeasonCount = currentPersonSeasonItems.filter(x => (x as GiftItem).id === cardValue).length;
-            let restriction = itemRestrictions[cardValue];
-            if (restriction && currentSeasonCount >= restriction) {
-                card.classList.add("gift-add-item__card_restricted")
-            } else {
-                card.classList.remove("gift-add-item__card_restricted")
+            if (currentPersonSeasonItems) {
+                let currentSeasonCount = currentPersonSeasonItems.filter(x => (x as GiftItem).id === cardValue).length;
+                let restriction = itemRestrictions[cardValue];
+                if (restriction && currentSeasonCount >= restriction) {
+                    card.classList.add("gift-add-item__card_restricted")
+                } else {
+                    card.classList.remove("gift-add-item__card_restricted")
+                }
+            }
+
+            card.classList.remove("gift-add-item__card_passive");
+            if (selectedPerson.generation !== null || selectedPerson.gender !== null) {                
+                if (selectedPerson.generation !== null && itemGenerations[cardValue]?.find(x => x == selectedPerson.generation) === undefined) {
+                    card.classList.add("gift-add-item__card_passive");
+                }
+                if (selectedPerson.gender !== null && itemGenders[cardValue]?.find(x => x == selectedPerson.gender) === undefined) {
+                    card.classList.add("gift-add-item__card_passive");
+                }
             }
         }
     }
@@ -295,22 +313,42 @@ export function loadPersons(layout: Layout) {
     personList.innerHTML = "";
 
     const firstNameTextBox = layout.controls.get<TextBox>("firstName");
-    addPerson(firstNameTextBox.value, EMPTY_GUID);
+    addPerson(firstNameTextBox.value, EMPTY_GUID, null, null);
     const recipientFirstNameControls = layout.controls.tryGet<TextBox[]>("recipientFirstName");
     const recipientLastNameControls = layout.controls.tryGet<TextBox[]>("recipientLastName");
     const relationshipControls = layout.controls.tryGet<Dropdown[]>("relationship");
-    
+    const ageControls = layout.controls.tryGet<Dropdown[]>("age");
+    const genderControls = layout.controls.tryGet<RadioGroup[]>("recipientSex");
+
     const recipientsTable = layout.controls.get<Table>("recipients");
+    const names = [] as string[];
+    for (let i = 0; i < recipientsTable.params.rows.length; i++) {
+        names.push(recipientFirstNameControls[i].value);
+    }
+
     for (let i = 0; i < recipientsTable.params.rows.length; i++) {
         const relationship = relationshipControls[i].params.items.find(x => x.key == relationshipControls[i].value)?.value
+        const age = ageControls[i].params.items.find(x => x.key == ageControls[i].value)?.value
+        const ageCode = ageControls[i].params.items.find(x => x.key == ageControls[i].value)?.valueCode as number;
+        const genderCode = genderControls[i].params.items.find(x => x.key == genderControls[i].value)?.["valueCode"] as number;
         let name = recipientFirstNameControls[i].value;
         if (recipientLastNameControls[i].value) {
             name += " " + recipientLastNameControls[i].value;
         }
-        if (relationship) {
-            name += " (" + relationship + ")";
+        let details = "";
+        if (age) {
+            details = age;
         }
-        addPerson(name, recipientsTable.params.rows[i]);
+        if (relationship) {
+            let nameCount = names.reduce((a, b) => b === name ? a + 1 : a, 0);
+            if (nameCount > 1) {
+                details = age + " | " + relationship;
+            }
+        }
+        if (details) {
+            name += " (" + details + ")";
+        }
+        addPerson(name, recipientsTable.params.rows[i], ageCode, genderCode);
     }
 }
 

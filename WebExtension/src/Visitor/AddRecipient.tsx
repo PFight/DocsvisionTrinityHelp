@@ -25,6 +25,7 @@ export function addRecipient(sender: LayoutControl) {
     let name: TextBox = null;
     let lastName: TextBox = null;
     let sex: RadioGroup = null;
+    let generation: RadioGroup = null;
     let age: NumberControl = null;
     let birthYear: NumberControl = null;
     let relation: RadioGroup = null;
@@ -48,6 +49,7 @@ export function addRecipient(sender: LayoutControl) {
 
         let nameCell = controls.get<TextBox[]>("recipientFirstName")[rowIndex];
         let lastNameCell = controls.get<TextBox[]>("recipientLastName")[rowIndex];
+        let generationCell = controls.get<Dropdown[]>("age")[rowIndex];
         let sexCell = controls.get<Dropdown[]>("recipientSex")[rowIndex];
         let recipientBirthYearCell = controls.get<NumberControl[]>("recipientBirthYear")[rowIndex];
         let relationshipCell = controls.get<TextBox[]>("relationship")[rowIndex];
@@ -61,6 +63,7 @@ export function addRecipient(sender: LayoutControl) {
         nameCell.value = name.value;
         lastNameCell.value = lastName.value;
         sexCell.value = sex.value;
+        generationCell.value = generation.value;
         if (age.hasValue()) {
           recipientBirthYearCell.value = (new Date()).getFullYear() - age.value;
         }
@@ -87,6 +90,7 @@ export function addRecipient(sender: LayoutControl) {
             <TextBox parent={null} ref={(el) => name = el} labelText="Имя" placeHolder="Имя" />
             <TextBox parent={null} ref={(el) => lastName = el} labelText="Фамилия (если отличается)" placeHolder="Фамилия (если отличается)" />
             <RadioGroup name="sexModal" parent={null} ref={(el) => sex = el} items={sexVariants} labelText="Пол" />
+            <RadioGroup name="generationModal" parent={null} ref={(el) => generation = el} items={generationVariants} labelText="Поколение" />
             <NumberControl parent={null} ref={(el) => age = el} labelText="Возраст (для детей)" placeHolder="Возраст (для детей)" />
             <NumberControl parent={null} ref={(el) => birthYear = el} labelText="Год рождения (для детей)" placeHolder="Год рождения (для детей)" />
             <RadioGroup name="relationModal" parent={null} ref={(el) => relation = el} items={realtionshipVariants} labelText="Связь" />
@@ -157,6 +161,29 @@ const realtionshipVariants  = [
     "key": "Familiar",
     "value": "Знакомый",
     "valueCode": 7
+  }
+];
+
+const generationVariants  = [
+  {
+    "key": "Baby",
+    "value": "Младенец",
+    "valueCode": 0
+  },
+  {
+    "key": "Kid",
+    "value": "Ребенок",
+    "valueCode": 1
+  },
+  {
+    "key": "Teenager",
+    "value": "Подросток",
+    "valueCode": 2
+  },
+  {
+    "key": "Adult",
+    "value": "Взрослый",
+    "valueCode": 3
   }
 ];
 

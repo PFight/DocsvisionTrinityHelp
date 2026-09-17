@@ -124,6 +124,10 @@
     padding: 10px;
 }
 
+#addItemPerson {
+    display: none;
+}
+
 .gift-add-item__card {
     display: inline-flex;
     text-align: center;
@@ -139,6 +143,11 @@
 
 .gift-add-item__card.gift-add-item__card_restricted {
     background-color: rgb(255 0 0 / 46%);
+    cursor: no-drop;
+}
+
+.gift-add-item__card.gift-add-item__card_passive {
+    opacity: 0.3;
     cursor: no-drop;
 }
 

@@ -388,6 +388,30 @@
           </Name>
         </Enum>
       </Field>
+      <Field Alias="Age" ID="63B55B0F-03E6-42DF-AE95-28A54C4CC625" Type="enum" DefaultValue="" CopyBehavior="Copy">
+        <Name />
+        <Description />
+        <Enum Alias="Baby" Value="0">
+          <Name>
+            <LocalizedString Language="ru">Младенец</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Kid" Value="1">
+          <Name>
+            <LocalizedString Language="ru">Ребенок</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Teenager" Value="2">
+          <Name>
+            <LocalizedString Language="ru">Подросток</LocalizedString>
+          </Name>
+        </Enum>
+        <Enum Alias="Adult" Value="3">
+          <Name>
+            <LocalizedString Language="ru">Взрослый</LocalizedString>
+          </Name>
+        </Enum>
+      </Field>
       <Section Alias="Dublicates" RowAlias="" Type="coll" ID="93A4D1E2-1F4A-454A-B883-5B67F062F892">
         <Name>
           <LocalizedString Language="en">Dublicates</LocalizedString>

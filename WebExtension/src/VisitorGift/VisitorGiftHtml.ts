@@ -45,8 +45,7 @@ export const VisitorGiftHtml = `
                     </td>
                 </tr>
                 <tr class="gift-field gift-add-item">
-                    <td class="gift-field__label">Имя: </td>
-                    <td class="gift-field__input-container">
+                    <td class="gift-field__input-container" colspan="2">
                         <button id="addItemPerson" readonly class="gift-add-item__button" >Добавить имя</button>
                         <dialog id="nameSelectDialog">
                             <input class="name-select__input" id="nameSearch" tabindex="0" />

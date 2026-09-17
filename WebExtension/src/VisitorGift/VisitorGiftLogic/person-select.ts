@@ -20,7 +20,7 @@ export function initPersonSelect(layout: Layout) {
 }
 
 const SELECTED_PERSON_CLASS = "selected";
-export function addPerson(name: string, id: string) {
+export function addPerson(name: string, id: string, generation: number | null, gender: number | null) {
     let personList = document.getElementById("personList")! as HTMLElement;
     let personListItemTemplate = document.getElementById("personListItem")! as HTMLTemplateElement;
     let personListItemFragment = document.importNode(personListItemTemplate.content, true);
@@ -28,6 +28,12 @@ export function addPerson(name: string, id: string) {
     personListItem.textContent = name || "<не указано>";
     personListItem.setAttribute("data-name", name);
     personListItem.setAttribute("data-id", id);
+    if (gender !== null && gender !== undefined) {
+        personListItem.setAttribute("data-gender", gender.toString());
+    }
+    if (generation !== null && generation !== undefined) {
+        personListItem.setAttribute("data-generation", generation.toString());
+    }
     personListItem.addEventListener("click", (event) => {
         selectPerson((event.target as HTMLElement).getAttribute("data-id"));
 
